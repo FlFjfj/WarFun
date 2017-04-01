@@ -1,31 +1,30 @@
 package com.fjfj.warfun.game;
 
-import java.util.Random;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.Tile.TileType;
 
 public class Fieldgenerator {
 	public int w, h;
-	public Random rand;
 	public Tile field[][];
 	public int param;
 
 	public Fieldgenerator(int _w, int _h) {
 		w = _w;
 		h = _h;
-		param = 7;
-		rand = new Random();
+
+		param = 5;
 	}
 
 	public void blockgen(int xb, int yb, int wb, int hb, int xp, int yp) {
 		if (field[xp][yp].type == TileType.Solid)
 			return;
 		field[xp][yp] = new Tile(TileType.Solid, xp, yp);
-		int dx = rand.nextInt(2) - 1;
-		int dy = rand.nextInt(2) - 1;
-		while (rand.nextInt(param) != 0) {
-			dx = rand.nextInt(2) - 1;
-			dy = rand.nextInt(2) - 1;
+		int dx = MathUtils.random(1) - 1;
+		int dy = MathUtils.random(1) - 1;
+		while (MathUtils.random(param) != 0) {
+			dx = MathUtils.random(1) - 1;
+			dy = MathUtils.random(1) - 1;
 			if ((xp + dx < wb + xb) && (yp + dy < hb + yb) && (xp + dx >= xb) && (yp + dy >= yb))
 				blockgen(xb, yb, wb, hb, xp + dx, yp + dy);
 		}
@@ -48,10 +47,8 @@ public class Fieldgenerator {
 			for (int j = 0; j < h / hb; j++) {
 				xb = i * wb;
 				yb = j * hb;
-				xp = rand.nextInt(wb) + xb;
-				yp = rand.nextInt(hb) + yb;
-				System.out.println(xp);
-				System.out.println(yp);
+				xp = MathUtils.random(wb-1) + xb;
+				yp = MathUtils.random(hb-1) + yb;
 				blockgen(xb, yb, wb, hb, xp, yp);
 			}
 
