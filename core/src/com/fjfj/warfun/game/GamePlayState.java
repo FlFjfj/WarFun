@@ -35,8 +35,8 @@ public class GamePlayState extends GameState {
 		tiles = fg.generate();
 		player1 = new Player(new KeyBoardController(), 30, 10);
 		player2 = new Player(new GamepadController(Controllers.getControllers().first()), 24, 10);
-		tiles[30][10].here = player1;
-		tiles[24][10].here = player2;
+		tiles[30][10].setPlayer(player1);
+		tiles[24][10].setPlayer(player2);
 
 	}
 	

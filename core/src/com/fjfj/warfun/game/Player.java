@@ -61,7 +61,7 @@ public class Player {
 						(Math.abs(offsetY) <= Tile.SIZE/2 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
 					x--;
-					GamePlayState.tiles[x][y].here = this;
+					GamePlayState.tiles[x][y].setPlayer(this);
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
@@ -71,7 +71,7 @@ public class Player {
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
-					GamePlayState.tiles[x][y].here = this;
+					GamePlayState.tiles[x][y].setPlayer(this);
 					offsetX = -Tile.SIZE;
 				}
 
@@ -91,7 +91,7 @@ public class Player {
 						offsetY -= Tile.SIZE;
 						GamePlayState.tiles[x][y].here = null;
 						y++;
-						GamePlayState.tiles[x][y].here = this;
+						GamePlayState.tiles[x][y].setPlayer(this);
 					} else {
 						offsetY = 0;
 					}
@@ -108,7 +108,7 @@ public class Player {
 				(Math.abs(offsetX) <= Tile.SIZE/2|| GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y-1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
-			GamePlayState.tiles[x][y].here = this;
+			GamePlayState.tiles[x][y].setPlayer(this);
 			if (velY > 0)
 				velY = 0;
 			offsetY = Tile.SIZE;
@@ -123,7 +123,7 @@ public class Player {
 
 				GamePlayState.tiles[x][y].here = null;
 				y++;
-				GamePlayState.tiles[x][y].here = this;
+				GamePlayState.tiles[x][y].setPlayer(this);
 			}
 		}
 
