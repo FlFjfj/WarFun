@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.MainGame;
 import com.fjfj.warfun.game.control.GamepadController;
 import com.fjfj.warfun.game.control.KeyBoardController;
+import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.utils.GameState;
 import com.fjfj.warfun.utils.StateBasedGame;
 
