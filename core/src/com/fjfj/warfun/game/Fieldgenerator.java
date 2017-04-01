@@ -48,8 +48,6 @@ public class Fieldgenerator {
 				yb = j * hb;
 				xp = MathUtils.random(wb-1) + xb;
 				yp = MathUtils.random(hb-1) + yb;
-				System.out.println(xp);
-				System.out.println(yp);
 				blockgen(xb, yb, wb, hb, xp, yp);
 			}
 
