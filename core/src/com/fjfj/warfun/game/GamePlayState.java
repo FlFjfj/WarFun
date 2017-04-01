@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.MainGame;
 import com.fjfj.warfun.game.control.GamepadController;
 import com.fjfj.warfun.game.control.KeyBoardController;
-import com.fjfj.warfun.game.player.Builder;
+import com.fjfj.warfun.game.player.BuilderPlayer;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
 import com.fjfj.warfun.utils.GameState;
@@ -37,7 +37,7 @@ public class GamePlayState extends GameState {
 		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
 		tiles = fg.generate();
 		player1 = new RainbowPlayer(new KeyBoardController(), 30, 10);
-		player2 = new Builder(new GamepadController(Controllers.getControllers().first()), 24, 10);
+		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 24, 10);
 		tiles[30][10].setPlayer(player1);
 		tiles[24][10].setPlayer(player2);
 
