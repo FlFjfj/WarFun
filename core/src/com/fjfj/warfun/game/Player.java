@@ -114,7 +114,8 @@ public class Player {
 			offsetY = Tile.SIZE;
 		}
 
-		if (offsetY == 0 && controller.isUpDown() && !GamePlayState.tiles[x][y - 1].canWalk()) {
+		if (offsetY == 0 && controller.isUpDown() && (!GamePlayState.tiles[x][y - 1].canWalk() ||
+				(Math.abs(offsetY) >= Tile.SIZE/2 &&  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y ].canWalk()))) {
 			if (GamePlayState.tiles[x][y + 1].canWalk() 
 					&& (Math.abs(offsetX) <= Tile.SIZE/2 || GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y+1].canWalk())) {
 				offsetY = -Tile.SIZE;
