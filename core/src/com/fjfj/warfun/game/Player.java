@@ -58,7 +58,7 @@ public class Player {
 		if (offsetX == 0)
 			if (controller.isLeftDown())
 				if (GamePlayState.tiles[x - 1][y].canWalk() &&
-						(Math.abs(offsetY) <= Tile.SIZE/2 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
+						(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
 					x--;
 					GamePlayState.tiles[x][y].here = this;
@@ -67,7 +67,7 @@ public class Player {
 		if (offsetX == 0)
 
 			if (controller.isRightDown() &&
-					(Math.abs(offsetY) <= Tile.SIZE/2 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
+					(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
@@ -105,7 +105,7 @@ public class Player {
 		}
 
 		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0 && 
-				(Math.abs(offsetX) <= Tile.SIZE/2|| GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y-1].canWalk())) {
+				(Math.abs(offsetX) <= Tile.SIZE/5|| GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y-1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
 			GamePlayState.tiles[x][y].here = this;
@@ -115,9 +115,9 @@ public class Player {
 		}
 
 		if (offsetY == 0 && controller.isUpDown() && (!GamePlayState.tiles[x][y - 1].canWalk() ||
-				(Math.abs(offsetY) >= Tile.SIZE/2 &&  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y ].canWalk()))) {
+				(Math.abs(offsetX) >= Tile.SIZE/5 &&  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y ].canWalk()))) {
 			if (GamePlayState.tiles[x][y + 1].canWalk() 
-					&& (Math.abs(offsetX) <= Tile.SIZE/2 || GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y+1].canWalk())) {
+					&& (Math.abs(offsetX) <= Tile.SIZE/5 || GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y+1].canWalk())) {
 				offsetY = -Tile.SIZE;
 				velY = startVelY;
 
