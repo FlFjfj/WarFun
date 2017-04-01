@@ -59,7 +59,7 @@ public abstract class Player {
 		}
 
 		if (offsetX == 0)
-			if (controller.isLeftDown())
+			if (controller.isMoveLeftDown())
 				if (GamePlayState.tiles[x - 1][y].canWalk() &&
 						(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
@@ -69,7 +69,7 @@ public abstract class Player {
 				}
 		if (offsetX == 0)
 
-			if (controller.isRightDown() &&
+			if (controller.isMoveRightDown() &&
 					(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;

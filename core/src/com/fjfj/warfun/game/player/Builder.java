@@ -7,23 +7,28 @@ import com.fjfj.warfun.game.control.AbstractController;
 import com.fjfj.warfun.utils.Assets;
 
 public class Builder extends Player {
-	boolean build;
+
 	public Builder(AbstractController control, int x, int y) {
 		super(control, x, y);
-		build = true;
+
+		super.tex = Assets.getTexture("player");
 	}
-	
+
 	@Override
-	public void update(){
-		if(controller.isChangeDown())
-			build = !build;
-			
-		if(controller.isActionDown()){
-			if(controller.isLeftDown() && GamePlayState.tiles[x-1][y].here == null && (build ^ !GamePlayState.tiles[x-1][y].canWalk()))
-				GamePlayState.tiles[x-1][y] = new Tile(build? TileType.Solid : TileType.Free,x-1,y);
-			else if (controller.isRightDown() && GamePlayState.tiles[x+1][y].here == null && (build ^ !GamePlayState.tiles[x+1][y].canWalk()))
-				GamePlayState.tiles[x-1][y] = new Tile(build? TileType.Solid : TileType.Free,x+1,y);
-		}
+	public void update() {
+
+		if (controller.isActionLeftDown())
+			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Solid, x - 1, y);
+		else if(controller.isActionRightDown())
+			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Solid, x + 1, y);
+		else if(controller.isSecondaryActionLeftDown())
+			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Free, x - 1, y);
+		else if(controller.isSecondaryActionRightDown())
+			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Free, x + 1, y);
+
+		GamePlayState.tiles[x + 1][y].isRevealed = true;
+		GamePlayState.tiles[x - 1][y].isRevealed = true;
+		
 		super.update();
 	}
 

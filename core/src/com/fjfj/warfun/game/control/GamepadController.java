@@ -12,28 +12,38 @@ public class GamepadController extends AbstractController {
 	}
 	
 	@Override
-	public boolean isLeftDown() {
-		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f;
+	public boolean isMoveLeftDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f && !control.getButton(Xbox.R_TRIGGER) && !control.getButton(Xbox.L_TRIGGER);
 	}
 
 	@Override
-	public boolean isRightDown() {
-		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f;
+	public boolean isMoveRightDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f && !control.getButton(Xbox.R_TRIGGER) && !control.getButton(Xbox.L_TRIGGER);
 	}
 
 	@Override
 	public boolean isUpDown() {
-		return control.getButton(Xbox.A);
+		return control.getButton(Xbox.A) && !control.getButton(Xbox.R_TRIGGER);
 	}
 
 	@Override
-	public boolean isActionDown() {
-		return control.getButton(Xbox.R_TRIGGER);
+	public boolean isActionLeftDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f && control.getButton(Xbox.R_TRIGGER);
 	}
 
 	@Override
-	public boolean isChangeDown() {
-		return control.getButton(Xbox.L_TRIGGER);
+	public boolean isActionRightDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f && control.getButton(Xbox.R_TRIGGER);
+	}
+
+	@Override
+	public boolean isSecondaryActionLeftDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f && control.getButton(Xbox.L_TRIGGER);
+	}
+
+	@Override
+	public boolean isSecondaryActionRightDown() {
+		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f && control.getButton(Xbox.L_TRIGGER);
 	}
 
 }

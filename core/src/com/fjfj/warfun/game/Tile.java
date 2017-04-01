@@ -31,8 +31,8 @@ public class Tile {
 	Texture tex0;
 	Texture tex1;
 
-	TileType type;
-	boolean isRevealed = false;;
+	public TileType type;
+	public boolean isRevealed = false;;
 
 	
 	
@@ -79,14 +79,14 @@ public class Tile {
 			}
 	}
 
-	void makeRainbow(int dx){
+	public void makeRainbow(int dx){
 		if(type == TileType.Free){
 			isRainbow = true;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 		}
 	}
 	
-	void removeRainbow(int dx){
+	public void removeRainbow(int dx){
 		if(type == TileType.Free){
 			isRainbow = false;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
