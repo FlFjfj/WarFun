@@ -29,6 +29,11 @@ public abstract class StateBasedGame {
 				state.draw(batch);
 	}
 	
+	public void resize(int width, int height){
+		for (GameState state : states)
+				state.resize(width, height);
+	}
+	
 	public void update(){
 		for (GameState state : states)
 			if (state.getID() == CurrentState)

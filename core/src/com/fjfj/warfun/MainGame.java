@@ -1,8 +1,6 @@
 package com.fjfj.warfun;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fjfj.warfun.game.GamePlayState;
@@ -12,7 +10,7 @@ import com.fjfj.warfun.utils.StateBasedGame;
 public class MainGame extends StateBasedGame implements ApplicationListener {
 	
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static int HEIGHT = 600;
 	
 	public static final int GAMEPLAYSTATE = 1;
 	
@@ -47,7 +45,11 @@ public class MainGame extends StateBasedGame implements ApplicationListener {
 	}
 
 	@Override
-	public void resize(int width, int height) {}
+	public void resize(int width, int height) {
+		super.resize(width, height);
+		HEIGHT = (int)(MainGame.WIDTH / (float)width * height);
+	}
+	
 	@Override
 	public void pause() {}
 
