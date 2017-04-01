@@ -60,7 +60,8 @@ public class Tile {
 	}
 
 	public void drawRainbow(SpriteBatch batch) {
-		
+		if(isRainbow)
+			batch.draw(rainbow, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
 	}
 	
 	public boolean canWalk() {
@@ -79,11 +80,17 @@ public class Tile {
 	}
 
 	void makeRainbow(int dx){
-		
+		if(type == TileType.Free){
+			isRainbow = true;
+			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+		}
 	}
 	
 	void removeRainbow(int dx){
-		
+		if(type == TileType.Free){
+			isRainbow = false;
+			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+		}
 	}
 	
 }

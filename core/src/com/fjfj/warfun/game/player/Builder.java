@@ -4,6 +4,7 @@ import com.fjfj.warfun.game.GamePlayState;
 import com.fjfj.warfun.game.Tile;
 import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.game.control.AbstractController;
+import com.fjfj.warfun.utils.Assets;
 
 public class Builder extends Player {
 	boolean build;

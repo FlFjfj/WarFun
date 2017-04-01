@@ -34,8 +34,6 @@ public abstract class Player {
 		this.y = y;
 
 		this.controller = control;
-		
-	//	tex = Assets.getTexture("player");
 	}
 
 	public void draw(SpriteBatch batch) {
