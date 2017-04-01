@@ -26,4 +26,14 @@ public class GamepadController extends AbstractController {
 		return control.getButton(Xbox.A);
 	}
 
+	@Override
+	public boolean isActionDown() {
+		return control.getButton(Xbox.R_TRIGGER);
+	}
+
+	@Override
+	public boolean isChangeDown() {
+		return control.getButton(Xbox.L_TRIGGER);
+	}
+
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.utils.Assets;
 
 public class Tile {
@@ -19,14 +20,14 @@ public class Tile {
 	static Texture rainbow = Assets.getTexture("rainbow");
 	boolean isRainbow = false;
 	boolean isRainbowed = false;
-	
-	enum TileType {
+
+	public enum TileType {
 		Solid, Free
 	}
 
 	int x, y;
 
-	Player here = null;
+	public Player here = null;
 	Texture tex0;
 	Texture tex1;
 

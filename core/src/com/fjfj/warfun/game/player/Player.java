@@ -1,23 +1,27 @@
-package com.fjfj.warfun.game;
+package com.fjfj.warfun.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.fjfj.warfun.game.GamePlayState;
+import com.fjfj.warfun.game.Tile;
 import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.game.control.AbstractController;
 import com.fjfj.warfun.utils.Assets;
 
-public class Player {
+public abstract class Player {
 
-	AbstractController controller;
+	protected AbstractController controller;
 	
-	int x, y;
-	Texture tex;
+	public int x;
 
-	float offsetX = 0;
-	float offsetY = 0;
+	public int y;
+	protected Texture tex;
+	protected boolean isLeft ;  
+	public float offsetX = 0;
+	public float offsetY = 0;
 
 	float startVelY = 800;
 	float G = 2400;
@@ -31,7 +35,7 @@ public class Player {
 
 		this.controller = control;
 		
-		tex = Assets.getTexture("player");
+	//	tex = Assets.getTexture("player");
 	}
 
 	public void draw(SpriteBatch batch) {
@@ -41,6 +45,7 @@ public class Player {
 
 	public void update() {
 	
+		
 		if (offsetX != 0) {
 			if (offsetX > 0) {
 				offsetX -= Gdx.graphics.getDeltaTime() * velX;

@@ -20,4 +20,14 @@ public class KeyBoardController extends AbstractController {
 		return Gdx.input.isKeyPressed(Keys.UP);
 	}
 
+	@Override
+	public boolean isActionDown() {
+		return Gdx.input.isKeyPressed(Keys.SPACE);
+	}
+
+	@Override
+	public boolean isChangeDown() {
+		return Gdx.input.isKeyPressed(Keys.ALT_LEFT);
+	}
+
 }
