@@ -1,8 +1,6 @@
 package com.fjfj.warfun.game.control;
 
-import com.badlogic.gdx.controllers.ControlType;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Xbox;
 
 public class GamepadController extends AbstractController {

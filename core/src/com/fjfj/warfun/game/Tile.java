@@ -16,6 +16,10 @@ public class Tile {
 		System.out.println(tileShader.getLog());
 	}
 
+	static Texture rainbow = Assets.getTexture("rainbow");
+	boolean isRainbow = false;
+	boolean isRainbowed = false;
+	
 	enum TileType {
 		Solid, Free
 	}
@@ -29,6 +33,8 @@ public class Tile {
 	TileType type;
 	boolean isRevealed = false;;
 
+	
+	
 	public Tile(TileType type, int x, int y) {
 
 		this.type = type;
@@ -52,6 +58,10 @@ public class Tile {
 		}
 	}
 
+	public void drawRainbow(SpriteBatch batch) {
+		
+	}
+	
 	public boolean canWalk() {
 		return TileType.Free == type && here == null;
 	}
@@ -67,4 +77,12 @@ public class Tile {
 			}
 	}
 
+	void makeRainbow(int dx){
+		
+	}
+	
+	void removeRainbow(int dx){
+		
+	}
+	
 }
