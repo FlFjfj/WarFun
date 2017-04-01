@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.utils.Assets;
 
 public class Player {
@@ -18,7 +17,7 @@ public class Player {
 	float startVelY = 800;
 	float G = 2400;
 
-	float velX = startVelY;
+	float velX = startVelY / 2;
 	float velY = startVelY;
 
 	public Player(int x, int y) {
@@ -51,14 +50,17 @@ public class Player {
 
 		if (offsetX == 0)
 			if (Gdx.input.isKeyPressed(Keys.LEFT))
-				if (GamePlayState.tiles[x - 1][y].canWalk()) {
+				if (GamePlayState.tiles[x - 1][y].canWalk() &&
+						(offsetY == 0 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
+					
 					GamePlayState.tiles[x][y].here = null;
 					x--;
 					GamePlayState.tiles[x][y].here = this;
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
-			if (Gdx.input.isKeyPressed(Keys.RIGHT))
+			if (Gdx.input.isKeyPressed(Keys.RIGHT) &&
+					(offsetY == 0 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
@@ -77,7 +79,8 @@ public class Player {
 			if (velY > 0) {
 				if (offsetY >= 0) {
 					float t = velY / G;
-					if (velY * t - G * t * t / 2 >= Tile.SIZE && GamePlayState.tiles[x][y + 1].type == TileType.Free) {
+					if (velY * t - G * t * t / 2 >= Tile.SIZE && GamePlayState.tiles[x][y + 1].canWalk() &&
+						(offsetX == 0 ||  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y].canWalk())){
 						offsetY -= Tile.SIZE;
 						GamePlayState.tiles[x][y].here = null;
 						y++;
