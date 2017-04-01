@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.game.control.AbstractController;
 import com.fjfj.warfun.utils.Assets;
@@ -57,7 +58,7 @@ public class Player {
 		if (offsetX == 0)
 			if (controller.isLeftDown())
 				if (GamePlayState.tiles[x - 1][y].canWalk() &&
-						(offsetY == 0 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
+						(Math.abs(offsetY) <= Tile.SIZE/2 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
 					x--;
 					GamePlayState.tiles[x][y].here = this;
@@ -66,7 +67,7 @@ public class Player {
 		if (offsetX == 0)
 
 			if (controller.isRightDown() &&
-					(offsetY == 0 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
+					(Math.abs(offsetY) <= Tile.SIZE/2 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
@@ -85,8 +86,8 @@ public class Player {
 			if (velY > 0) {
 				if (offsetY >= 0) {
 					float t = velY / G;
-					if (velY * t - G * t * t / 2 >= Tile.SIZE && GamePlayState.tiles[x][y + 1].canWalk() &&
-						(offsetX == 0 ||  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y].canWalk())){
+					if (velY * t - G * t * t / 2 >= Tile.SIZE && GamePlayState.tiles[x][y + 1].canWalk())/* &&
+						(offsetX == 0 ||  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][(int) (y + Math.signum(offsetY))].canWalk()))*/{
 						offsetY -= Tile.SIZE;
 						GamePlayState.tiles[x][y].here = null;
 						y++;
@@ -103,7 +104,8 @@ public class Player {
 			}
 		}
 
-		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0) {
+		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0 && 
+				(Math.abs(offsetX) <= Tile.SIZE/2|| GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y-1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
 			GamePlayState.tiles[x][y].here = this;
@@ -113,7 +115,8 @@ public class Player {
 		}
 
 		if (offsetY == 0 && controller.isUpDown() && !GamePlayState.tiles[x][y - 1].canWalk()) {
-			if (GamePlayState.tiles[x][y + 1].canWalk()) {
+			if (GamePlayState.tiles[x][y + 1].canWalk() 
+					&& (Math.abs(offsetX) <= Tile.SIZE/2 || GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y+1].canWalk())) {
 				offsetY = -Tile.SIZE;
 				velY = startVelY;
 
