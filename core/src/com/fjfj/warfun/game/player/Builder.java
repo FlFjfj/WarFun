@@ -19,10 +19,10 @@ public class Builder extends Player {
 			build = !build;
 			
 		if(controller.isActionDown()){
-			if(controller.isLeftDown() && GamePlayState.tiles[x-1][y].here == null && (build ^ GamePlayState.tiles[x-1][y].canWalk()))
+			if(controller.isLeftDown() && GamePlayState.tiles[x-1][y].here == null && (build ^ !GamePlayState.tiles[x-1][y].canWalk()))
 				GamePlayState.tiles[x-1][y] = new Tile(build? TileType.Solid : TileType.Free,x-1,y);
-			else if (controller.isRightDown() && GamePlayState.tiles[x-1][y].here == null && (build ^ GamePlayState.tiles[x+1][y].canWalk()))
-				GamePlayState.tiles[x-1][y] = new Tile(build? TileType.Solid : TileType.Free,x-1,y);
+			else if (controller.isRightDown() && GamePlayState.tiles[x+1][y].here == null && (build ^ !GamePlayState.tiles[x+1][y].canWalk()))
+				GamePlayState.tiles[x-1][y] = new Tile(build? TileType.Solid : TileType.Free,x+1,y);
 		}
 		super.update();
 	}
