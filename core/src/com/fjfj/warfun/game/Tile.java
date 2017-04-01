@@ -32,7 +32,7 @@ public class Tile {
 	Texture tex1;
 
 	TileType type;
-	boolean isRevealed = false;;
+	public boolean isRevealed = false;;
 
 	
 	
