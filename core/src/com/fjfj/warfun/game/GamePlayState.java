@@ -51,10 +51,23 @@ public class GamePlayState extends GameState {
 		
 		batch.begin();
 		
+		batch.setShader(Tile.tileShader);
+		Tile.tileShader.begin();
+		
+		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player"), 
+			new float[]{(player1.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player1.offsetX + Tile.SIZE / 2,
+						(player1.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player1.offsetY + Tile.SIZE / 2},
+			0, 2);
+		
+		Tile.tileShader.setUniformi(Tile.tileShader.getUniformLocation("u_texture1"), 1);
 		
 		for(int i = 0; i < tileWidth; i++)
 			for(int j = 0; j < tileHeight; j++)
 				tiles[i][j].draw(batch);
+		
+		Tile.tileShader.end();
+		batch.setShader(null);
+		
 		player1.draw(batch);
 		player2.draw(batch);
 		
