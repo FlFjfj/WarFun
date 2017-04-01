@@ -1,12 +1,11 @@
-package game;
+package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.utils.Assets;
-
-import game.Tile.TileType;
 
 public class Player {
 
@@ -52,7 +51,7 @@ public class Player {
 
 		if (offsetX == 0)
 			if (Gdx.input.isKeyPressed(Keys.LEFT))
-				if (GamePlayState.tiles[x - 1][y].type == TileType.Free) {
+				if (GamePlayState.tiles[x - 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x--;
 					GamePlayState.tiles[x][y].here = this;
@@ -60,7 +59,7 @@ public class Player {
 				}
 		if (offsetX == 0)
 			if (Gdx.input.isKeyPressed(Keys.RIGHT))
-				if (GamePlayState.tiles[x + 1][y].type == TileType.Free) {
+				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
 					GamePlayState.tiles[x][y].here = this;
@@ -95,7 +94,7 @@ public class Player {
 			}
 		}
 
-		if (GamePlayState.tiles[x][y - 1].type == TileType.Free && offsetY == 0) {
+		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
 			GamePlayState.tiles[x][y].here = this;
@@ -104,8 +103,8 @@ public class Player {
 			offsetY = Tile.SIZE;
 		}
 
-		if (offsetY == 0 && Gdx.input.isKeyPressed(Keys.UP) && GamePlayState.tiles[x][y - 1].type == TileType.Solid) {
-			if (GamePlayState.tiles[x][y + 1].type == TileType.Free) {
+		if (offsetY == 0 && Gdx.input.isKeyPressed(Keys.UP) && !GamePlayState.tiles[x][y - 1].canWalk()) {
+			if (GamePlayState.tiles[x][y + 1].canWalk()) {
 				offsetY = -Tile.SIZE;
 				velY = startVelY;
 

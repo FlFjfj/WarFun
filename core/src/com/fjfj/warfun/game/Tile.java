@@ -1,4 +1,4 @@
-package game;
+package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,6 +34,10 @@ public class Tile {
 	
 	public void draw(SpriteBatch batch){
 		batch.draw(tex, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
+	}
+	
+	boolean canWalk(){
+		return TileType.Free == type && here == null;
 	}
 	
 }

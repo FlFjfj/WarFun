@@ -1,14 +1,14 @@
-package game;
+package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.MainGame;
+import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.utils.GameState;
 import com.fjfj.warfun.utils.StateBasedGame;
-
-import game.Tile.TileType;
 
 public class GamePlayState extends GameState {
 
@@ -73,8 +73,10 @@ public class GamePlayState extends GameState {
 				   player2.offsetX + (player2.x - tileWidth / 2) * Tile.SIZE) / 2;
 		float y = (player1.offsetY + (player1.y - tileHeight / 2) * Tile.SIZE +
 				   player2.offsetY + (player2.y - tileHeight / 2) * Tile.SIZE) / 2;
-		camera.position.x = x;
-		camera.position.y = y;
+		camera.position.x = MathUtils.clamp(x, (MainGame.WIDTH / Tile.SIZE / 2 - tileWidth / 2) * Tile.SIZE,
+				-(MainGame.WIDTH / Tile.SIZE / 2 - tileWidth / 2) * Tile.SIZE);
+		camera.position.y = MathUtils.clamp(y, (MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE,
+				-(MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE);
 		camera.update();
 	}
 

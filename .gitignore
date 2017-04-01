@@ -1,5 +1,5 @@
 ## Java
-
+*.jar
 *.class
 *.war
 *.ear
