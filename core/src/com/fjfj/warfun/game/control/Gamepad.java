@@ -3,9 +3,9 @@ package com.fjfj.warfun.game.control;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
 
-public class JoystickController extends Controller{
+public class Gamepad extends Controller{
 
-	public JoystickController() {
+	public Gamepad() {
 		//Peripheral.
 	}
 	

@@ -23,4 +23,5 @@ public abstract class GameState {
 	public abstract void enter(StateBasedGame game);
 	public abstract void pause();
 	public abstract void resume();
+	public abstract void resize(int width, int height);
 }

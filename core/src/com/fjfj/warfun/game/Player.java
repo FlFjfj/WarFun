@@ -34,7 +34,7 @@ public class Player {
 	}
 
 	public void update() {
-
+	
 		if (offsetX != 0) {
 			if (offsetX > 0) {
 				offsetX -= Gdx.graphics.getDeltaTime() * velX;

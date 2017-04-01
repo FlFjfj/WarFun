@@ -92,4 +92,9 @@ public class GamePlayState extends GameState {
 	@Override
 	public void resume() {}
 
+	@Override
+	public void resize(int width, int height) {
+		camera = new OrthographicCamera(MainGame.WIDTH, MainGame.WIDTH / (float)width * height);
+	}
+
 }
