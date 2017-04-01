@@ -3,6 +3,7 @@ varying vec2 v_texCoords;
 varying vec2 v_position;
 
 uniform vec2 u_player;
+uniform mat4 u_projTrans;
 uniform sampler2D u_texture;
 uniform sampler2D u_texture1;
 
@@ -20,8 +21,8 @@ void main(){
     }
 
     len = len - radius;
-    if(len < blur_len && len > 0)
-	color.xyz = v_color * 
+    if(len < blur_len && len > 0.)
+	color.xyz = v_color.xyz * 
 	( mix(0., 1., (blur_len - len) / blur_len) * texture2D(u_texture, v_texCoords).xyz + 
 	  mix(0., 1., len / blur_len) * texture2D(u_texture1, v_texCoords).xyz);
 
