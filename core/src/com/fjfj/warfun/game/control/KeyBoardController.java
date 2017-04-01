@@ -3,7 +3,7 @@ package com.fjfj.warfun.game.control;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-public class KeyBoardController extends Controller {
+public class KeyBoardController extends AbstractController {
 
 	@Override
 	public boolean isLeftDown() {

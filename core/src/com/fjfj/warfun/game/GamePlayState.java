@@ -1,12 +1,14 @@
 package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.MainGame;
-import com.fjfj.warfun.game.Tile.TileType;
+import com.fjfj.warfun.game.control.GamepadController;
+import com.fjfj.warfun.game.control.KeyBoardController;
 import com.fjfj.warfun.utils.GameState;
 import com.fjfj.warfun.utils.StateBasedGame;
 
@@ -31,10 +33,11 @@ public class GamePlayState extends GameState {
 		
 		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
 		tiles = fg.generate();
-		player1 = new Player(30, 10);
-		player2 = new Player(24, 10);
+		player1 = new Player(new KeyBoardController(), 30, 10);
+		player2 = new Player(new GamepadController(Controllers.getControllers().first()), 24, 10);
 		tiles[30][10].here = player1;
 		tiles[24][10].here = player2;
+
 	}
 	
 	@Override
@@ -60,6 +63,7 @@ public class GamePlayState extends GameState {
 
 	@Override
 	public void update(StateBasedGame game) {
+		
 		player1.update();
 		player2.update();
 		
