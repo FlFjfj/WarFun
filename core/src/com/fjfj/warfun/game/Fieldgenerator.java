@@ -15,13 +15,6 @@ public class Fieldgenerator {
 		h = _h;
 		param = 3;
 		rand = new Random();
-		field = new Tile[h][w];
-		for (int i = 0; i < h; i++)
-			for (int j = 0; j < w; j++) {
-				field[i][j] = new Tile(TileType.Free, i, j);
-				if (i * j == 0 || i == h - 1 || j == w - 1)
-					field[i][j] = new Tile(TileType.Solid, i, j);
-			}
 	}
 
 	public void blockgen(int xb, int yb, int wb, int hb, int xp, int yp) {
@@ -39,18 +32,24 @@ public class Fieldgenerator {
 
 	}
 
-	public Tile[][] generate(int w, int h) {
+	public Tile[][] generate() {
 		int wb = 5;
 		int hb = 5;
 		int xb, yb;
 		int xp, yp;
-
-		for (int i = 0; i < h / hb; i++)
-			for (int j = 0; j < w / wb; j++) {
-				xb = i * hb;
-				yb = j * wb;
-				xp = rand.nextInt(hb) + xb;
-				yp = rand.nextInt(wb) + yb;
+		field = new Tile[w][h];
+		for (int i = 0; i < w; i++)
+			for (int j = 0; j < h; j++) {
+				field[i][j] = new Tile(TileType.Free, i, j);
+				if (i * j == 0 || i == w - 1 || j == h - 1)
+					field[i][j] = new Tile(TileType.Solid, i, j);
+			}
+		for (int i = 0; i < w / wb; i++)
+			for (int j = 0; j < h / hb; j++) {
+				xb = i * wb;
+				yb = j * hb;
+				xp = rand.nextInt(wb) + xb;
+				yp = rand.nextInt(hb) + yb;
 				System.out.println(xp);
 				System.out.println(yp);
 				blockgen(xb, yb, wb, hb, xp, yp);

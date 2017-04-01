@@ -29,14 +29,8 @@ public class GamePlayState extends GameState {
 	public void init(StateBasedGame game) {
 		camera = new OrthographicCamera(MainGame.WIDTH, MainGame.HEIGHT);
 		
-		tiles = new Tile[tileWidth][tileHeight];
-		for(int i = 0; i < tileWidth; i++)
-			for(int j = 0; j < tileHeight; j++)
-				if((i % 6 == 0 && j % 3 == 0)||i == 0 || j == 0 || i == tileWidth - 1 || j == tileHeight - 1)
-					tiles[i][j] = new Tile(TileType.Solid, i, j);
-				else
-					tiles[i][j] = new Tile(TileType.Free, i, j);
-		
+		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
+		tiles = fg.generate();
 		player1 = new Player(30, 10);
 		player2 = new Player(24, 10);
 		tiles[30][10].here = player1;
