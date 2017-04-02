@@ -20,11 +20,11 @@ public class Fieldgenerator {
 		if (field[xp][yp].type == TileType.Solid)
 			return;
 		field[xp][yp] = new Tile(TileType.Solid, xp, yp);
-		int dx = MathUtils.random(1) - 1;
-		int dy = MathUtils.random(1) - 1;
+		int dx = MathUtils.random(2) - 1;
+		int dy = MathUtils.random(2) - 1;
 		while (MathUtils.random(param) != 0) {
-			dx = MathUtils.random(1) - 1;
-			dy = MathUtils.random(1) - 1;
+			dx = MathUtils.random(2) - 1;
+			dy = MathUtils.random(2) - 1;
 			if ((xp + dx < wb + xb) && (yp + dy < hb + yb) && (xp + dx >= xb) && (yp + dy >= yb))
 				blockgen(xb, yb, wb, hb, xp + dx, yp + dy);
 		}
@@ -42,6 +42,7 @@ public class Fieldgenerator {
 				field[i][j] = new Tile(TileType.Free, i, j);
 				if (i * j == 0 || i == w - 1 || j == h - 1)
 					field[i][j] = new Tile(TileType.Solid, i, j);
+				//field[i][j].pill = new Pill();
 			}
 		for (int i = 0; i < w / wb; i++)
 			for (int j = 0; j < h / hb; j++) {
