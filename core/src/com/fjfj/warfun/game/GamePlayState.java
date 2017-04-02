@@ -1,18 +1,21 @@
 package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.mappings.Xbox;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.fjfj.warfun.MainGame;
 import com.fjfj.warfun.game.control.GamepadController;
-import com.fjfj.warfun.game.control.KeyBoardController;
 import com.fjfj.warfun.game.player.BuilderPlayer;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
-import com.fjfj.warfun.utils.Assets;
+import com.fjfj.warfun.menu.MainMenuState;
 import com.fjfj.warfun.utils.GameState;
 import com.fjfj.warfun.utils.StateBasedGame;
 
@@ -23,6 +26,7 @@ public class GamePlayState extends GameState {
 	public static float colorParam = 0;
 	
 	public static OrthographicCamera camera;
+	Fieldgenerator fg;
 	
 	public static Tile[][] tiles;
 	public static Player player1;
@@ -40,16 +44,7 @@ public class GamePlayState extends GameState {
 	@Override
 	public void init(StateBasedGame game) {
 		camera = new OrthographicCamera(MainGame.WIDTH, MainGame.HEIGHT);
-		
-		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
-		tiles = fg.generate();
-		player1 = new RainbowPlayer(new KeyBoardController(), 2, 2);
-		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 3, 2);
-		tiles[2][2].setPlayer(player1);
-		tiles[3][2].setPlayer(player2);
-		
-		back = new Background();
-		gui = new Gui();
+		fg = new Fieldgenerator(tileWidth,tileHeight);
 
 	}
 	
@@ -102,6 +97,10 @@ public class GamePlayState extends GameState {
 				-(MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE);
 		camera.zoom = 1;
 		camera.update();
+
+		Array<Controller> con = Controllers.getControllers();
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE) || con.get(0).getButton(Xbox.BACK) || con.get(1).getButton(Xbox.BACK))
+			game.enterState(MainGame.MAINMENUSTATE);
 		
 	}
 
@@ -109,7 +108,25 @@ public class GamePlayState extends GameState {
 	public void dispose() {}
 
 	@Override
-	public void enter(StateBasedGame game) {}
+	public void enter(StateBasedGame game) {
+		tiles = fg.generate();
+		
+		if(MainMenuState.isFirstBuilder)
+			player1 = new BuilderPlayer(new GamepadController(Controllers.getControllers().get(0)), 2, 2);
+		else
+			player1 = new RainbowPlayer(new GamepadController(Controllers.getControllers().get(0)), 2, 2);
+		
+		if(MainMenuState.isSecondBuilder)
+			player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().get(1)), 3, 2);
+		else
+			player2 = new RainbowPlayer(new GamepadController(Controllers.getControllers().get(1)), 3, 2);
+		
+		tiles[2][2].setPlayer(player1);
+		tiles[3][2].setPlayer(player2);
+		
+		back = new Background();
+		gui = new Gui();
+	}
 
 	@Override
 	public void pause() {}

@@ -1,15 +1,11 @@
 package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
-import com.fjfj.warfun.utils.AnimatedSprite;
 import com.fjfj.warfun.utils.Assets;
 
 public class Tile {

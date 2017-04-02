@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fjfj.warfun.game.GamePlayState;
+import com.fjfj.warfun.menu.MainMenuState;
 import com.fjfj.warfun.utils.Assets;
 import com.fjfj.warfun.utils.StateBasedGame;
 
@@ -12,6 +13,7 @@ public class MainGame extends StateBasedGame implements ApplicationListener {
 	public static final int WIDTH = 800;
 	public static int HEIGHT = 600;
 	
+	public static final int MAINMENUSTATE = 0;
 	public static final int GAMEPLAYSTATE = 1;
 	
 	SpriteBatch batch;
@@ -25,7 +27,8 @@ public class MainGame extends StateBasedGame implements ApplicationListener {
 		camera = new OrthographicCamera(WIDTH, HEIGHT);
 		
 		super.addState(new GamePlayState(GAMEPLAYSTATE, this));
-		super.enterState(GAMEPLAYSTATE);
+		super.addState(new MainMenuState(MAINMENUSTATE, this));
+		super.enterState(MAINMENUSTATE);
 		super.init();
 	}
 

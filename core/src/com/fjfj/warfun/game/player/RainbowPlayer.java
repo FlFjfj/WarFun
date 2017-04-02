@@ -32,25 +32,25 @@ public class RainbowPlayer extends Player {
 			if (controller.isActionLeftDown()) {
 				Assets.rainbow.pause();
 				Assets.rainbow.play();
-				mana -= 30 * Gdx.graphics.getDeltaTime();
+				mana -= 10 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(true);
 				GamePlayState.tiles[x - 1][y].makeRainbow(-1, rainbow.getAnimNow());
 			} else if (controller.isActionRightDown()) {
 				Assets.rainbow.pause();
 				Assets.rainbow.play();
-				mana -= 30 * Gdx.graphics.getDeltaTime();
+				mana -= 10 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(false);
 				GamePlayState.tiles[x + 1][y].makeRainbow(1, rainbow.getAnimNow());
 			} else if (controller.isActionUpDown()) {
 				Assets.rainbow.pause();
 				Assets.rainbow.play();
 				rainbow.setFlipped(false);
-				mana -= 30 * Gdx.graphics.getDeltaTime();
+				mana -= 10 * Gdx.graphics.getDeltaTime();
 				GamePlayState.tiles[x][y + 1].makeRainbow(0, rainbow.getAnimNow());
 			} else if (controller.isActionDownDown()) {
 				Assets.rainbow.pause();
 				Assets.rainbow.play();
-				mana -= 30 * Gdx.graphics.getDeltaTime();
+				mana -= 10 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(true);
 				GamePlayState.tiles[x][y - 1].makeRainbow(3, rainbow.getAnimNow());
 			}

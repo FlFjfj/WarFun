@@ -57,7 +57,7 @@ void main(){
     float angle = atan(dir.y, dir.x);
 
     float len = min((len0 - radius0), (len1 - radius1));
-    float flen = blur_len * abs(sin(u_time * 4 + angle * 16));
+    float flen = blur_len * abs(sin(u_time * 4. + angle * 16.));
     if(len < flen && len > 0.)
 	color.xyz =  
 	  mix(0., 1., (flen - len) / flen) * bright_color.xyz + 
