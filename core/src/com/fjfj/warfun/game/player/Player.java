@@ -1,15 +1,11 @@
 package com.fjfj.warfun.game.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.GamePlayState;
 import com.fjfj.warfun.game.Tile;
-import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.game.control.AbstractController;
-import com.fjfj.warfun.utils.Assets;
+import com.fjfj.warfun.utils.AnimatedSprite;
 
 public abstract class Player {
 
@@ -18,7 +14,7 @@ public abstract class Player {
 	public int x;
 
 	public int y;
-	protected Texture tex;
+	protected AnimatedSprite tex;
 	protected boolean isLeft ;  
 	public float offsetX = 0;
 	public float offsetY = 0;
@@ -37,12 +33,21 @@ public abstract class Player {
 	}
 
 	public void draw(SpriteBatch batch) {
-		batch.draw(tex, (x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
+		tex.setPosition((x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
 				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY);
+		tex.draw(batch);
 	}
 
 	public void update() {
-	
+		
+		if(offsetX > 0){
+			tex.setFlipped(true);
+			tex.update(Gdx.graphics.getDeltaTime());
+		}
+		if(offsetX < 0){
+			tex.setFlipped(false);
+			tex.update(Gdx.graphics.getDeltaTime());
+		}
 		
 		if (offsetX != 0) {
 			if (offsetX > 0) {

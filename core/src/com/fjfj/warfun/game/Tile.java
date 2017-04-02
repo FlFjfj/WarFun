@@ -97,6 +97,7 @@ public class Tile {
 		}
 	}
 
+
 	public void removeRainbow(int dx) {
 		if (type == TileType.Free) {
 			isRainbow = false;

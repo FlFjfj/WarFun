@@ -20,7 +20,7 @@ public class AnimatedSprite {
 	private int AnimNow = 0;
 	private int AnimCount = 0;
 	private float AnimDelta = 0;
-	private float PreferedDelta = 200;
+	private float PreferedDelta = 0.07f;
 	private boolean isFlipped = false;
 	
 	private Texture src;

@@ -15,14 +15,14 @@ void main(){
 
     vec4 color;
     float len = length(u_player - v_position);
-    if(len < radius || v_color.a != 0)
+    if(len < radius || v_color.a != 0.)
 	 color = texture2D(u_texture, v_texCoords);
     else{
 	 color = texture2D(u_texture1, v_texCoords);
     }
 
     len = len - radius;
-    if(len < blur_len && len > 0. && v_color.a == 0)
+    if(len < blur_len && len > 0. && v_color.a == 0.)
 	color.xyz =  
 	( mix(0., 1., (blur_len - len) / blur_len) * texture2D(u_texture, v_texCoords).xyz + 
 	  mix(0., 1., len / blur_len) * texture2D(u_texture1, v_texCoords).xyz);
