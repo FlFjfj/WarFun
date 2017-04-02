@@ -28,15 +28,20 @@ public class RainbowPlayer extends Player {
 
 		rainbow.update(Gdx.graphics.getDeltaTime());
 		
-		if (controller.isActionLeftDown())
+		if (controller.isActionLeftDown()){
+			rainbow.setFlipped(true);
 			GamePlayState.tiles[x-1][y].makeRainbow(-1, rainbow.getAnimNow());
-		else if (controller.isActionRightDown())
+		}
+		else if (controller.isActionRightDown()){
+			rainbow.setFlipped(false);
 			GamePlayState.tiles[x+1][y].makeRainbow(1, rainbow.getAnimNow());
-		else if (controller.isActionUpDown())
+		}else if (controller.isActionUpDown()){
+			rainbow.setFlipped(false);
 			GamePlayState.tiles[x][y+1].makeRainbow(0, rainbow.getAnimNow());
-		else if(controller.isActionDownDown())
+		}else if(controller.isActionDownDown()){
+			rainbow.setFlipped(true);
 			GamePlayState.tiles[x][y-1].makeRainbow(3, rainbow.getAnimNow());
-
+		}
 		super.update();
 	}
 

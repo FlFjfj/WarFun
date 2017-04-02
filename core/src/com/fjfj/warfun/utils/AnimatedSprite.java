@@ -145,11 +145,11 @@ public class AnimatedSprite {
 	}
 
 	public void setFlipped(boolean state){
-		if(state!=isFlipped){
-			isFlipped = state;
+		//if(state!=isFlipped){
+			//isFlipped = state;
 			for(Sprite a:img)
-				a.flip(true, false);
-		}
+				a.setFlip(state, false);
+		//}
 	}
 	
 	public boolean getFlipped(){
