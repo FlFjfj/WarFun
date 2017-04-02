@@ -44,6 +44,7 @@ public class Tile {
 
 	public TileType type;
 	public Pill pill = null;
+
 	public Texture pilltex;
 	public Tile(TileType type, int x, int y) {
 
@@ -57,7 +58,7 @@ public class Tile {
 			tex1 = Assets.getTexture("tile2");
 		}
 	}
-
+    
 	public void draw(SpriteBatch batch) {
 		if (type == TileType.Solid) {
 
