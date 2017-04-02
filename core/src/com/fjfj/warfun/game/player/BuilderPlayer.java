@@ -51,6 +51,16 @@ public class BuilderPlayer extends Player {
 				if (GamePlayState.tiles[x - 1][y].type == TileType.Solid)
 					mana -= 10;
 				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Free, x, y + 1);
+			} else if (controller.isActionDownDown() && GamePlayState.tiles[x][y -1 ].here == null
+					&& y >1 ) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Free)
+					mana -= 10;
+				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Solid, x, y + 1);
+			} else if (controller.isSecondaryActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
+					&& y + 2 < GamePlayState.tileHeight) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Solid)
+					mana -= 10;
+				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Free, x, y + 1);
 			}
 		}
 		super.update();

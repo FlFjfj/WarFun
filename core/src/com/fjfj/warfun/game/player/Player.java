@@ -13,7 +13,7 @@ import com.fjfj.warfun.utils.Assets;
 public abstract class Player {
 
 	protected AbstractController controller;
-	public float mana = 100;
+	public float mana = 300;
 
 	public int x;
 

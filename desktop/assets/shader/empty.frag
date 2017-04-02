@@ -49,11 +49,19 @@ void main(){
 	 color = texture2D(u_texture1, v_texCoords);
     }
 
+    /*vec2 dir;
+    if(len0 < len1)
+        dir = -(u_player0 - v_position).nor;
+    else
+        dir = -(u_player1 - v_position).nor*/       
+    //float angle = 
+
     float len = min((len0 - radius0), (len1 - radius1));
-    if(len < blur_len && len > 0.)
+    float flen = blur_len * abs(cos(u_time * 5.));
+    if(len < flen && len > 0.)
 	color.xyz =  
-	( mix(0., 1., (blur_len - len) / blur_len) * bright_color.xyz + 
-	  mix(0., 1., len / blur_len) * texture2D(u_texture1, v_texCoords).xyz);
+	  mix(0., 1., (flen - len) / flen) * bright_color.xyz + 
+	  mix(0., 1., len / flen) * texture2D(u_texture1, v_texCoords).xyz;
 
     gl_FragColor = color;
 }

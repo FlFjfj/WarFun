@@ -20,7 +20,7 @@ public class GamePlayState extends GameState {
 
 	public static final int tileWidth = 60;
 	public static final int tileHeight = 30;
-	public static float colorParam = 0;
+	public static float colorParam = 1;
 	
 	public static OrthographicCamera camera;
 	

@@ -17,7 +17,7 @@ public class Pill {
 		Gui.score += 50;
 		GamePlayState.radius += 10f;
 		if(GamePlayState.colorParam >= 10 || GamePlayState.colorParam <= 0)
-			delta *= -1.2;
+			delta *= -1.1;
 		GamePlayState.colorParam += delta;
 	}
 
