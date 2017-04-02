@@ -2,6 +2,7 @@ varying vec4 v_color;
 varying vec2 v_texCoords;
 varying vec2 v_position;
 
+//uniform int u_rainbowed;
 uniform vec2 u_player;
 uniform mat4 u_projTrans;
 uniform sampler2D u_texture;
@@ -14,15 +15,15 @@ void main(){
 
     vec4 color;
     float len = length(u_player - v_position);
-    if(len > radius)
-	 color = v_color * texture2D(u_texture1, v_texCoords);
+    if(len < radius || v_color.a != 0)
+	 color = texture2D(u_texture, v_texCoords);
     else{
-	 color = v_color * texture2D(u_texture, v_texCoords);
+	 color = texture2D(u_texture1, v_texCoords);
     }
 
     len = len - radius;
-    if(len < blur_len && len > 0.)
-	color.xyz = v_color.xyz * 
+    if(len < blur_len && len > 0. && v_color.a == 0)
+	color.xyz =  
 	( mix(0., 1., (blur_len - len) / blur_len) * texture2D(u_texture, v_texCoords).xyz + 
 	  mix(0., 1., len / blur_len) * texture2D(u_texture1, v_texCoords).xyz);
 
