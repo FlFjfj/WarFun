@@ -133,9 +133,11 @@ public abstract class Player {
 				GamePlayState.tiles[x][y].setPlayer(this);
 			}
 		}
+		if( offsetX == 0 && offsetY==0)
+			velY=0;
 
 	}
-
+	
 	public float[] getPosition(){
 		return new float[]{(x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
 				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY};

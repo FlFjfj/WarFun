@@ -13,6 +13,9 @@ public abstract class AbstractController {
 	public abstract boolean isSecondaryActionRightDown();
 	public abstract boolean isSecondaryActionUpDown();
 	
+	public abstract boolean isActionDownDown();
+	public abstract boolean isSecondaryActionDownDown();
+	
 	public abstract boolean isUpDown();
 	
 }

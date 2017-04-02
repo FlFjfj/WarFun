@@ -118,12 +118,12 @@ public class Tile {
 			}
 
 			isRevealed = true;
-			if (dx != 0) {
+			if (Math.abs(dx) == 1 ) {
 				GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 				rainbowUp = false;
 			} else {
 				rainbowUp = true;
-				GamePlayState.tiles[x][y + 1].makeRainbow(dx);
+				GamePlayState.tiles[x][y + (dx%2 == 0?1:-1)].makeRainbow(dx);
 			}
 		}
 	}

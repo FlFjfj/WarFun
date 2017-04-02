@@ -24,6 +24,8 @@ public class RainbowPlayer extends Player {
 			GamePlayState.tiles[x+1][y].makeRainbow(1);
 		else if (controller.isActionUpDown())
 			GamePlayState.tiles[x][y+1].makeRainbow(0);
+		else if(controller.isActionDownDown())
+			GamePlayState.tiles[x][y-1].makeRainbow(3);
 
 		super.update();
 	}
