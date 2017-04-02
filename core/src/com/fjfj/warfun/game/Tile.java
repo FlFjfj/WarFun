@@ -1,6 +1,7 @@
 package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -19,7 +20,6 @@ public class Tile {
 
 	static Texture rainbow = Assets.getTexture("rainbow");
 	boolean isRainbow = false;
-	boolean isRainbowed = false;
 
 	public enum TileType {
 		Solid, Free
@@ -53,9 +53,13 @@ public class Tile {
 
 	public void draw(SpriteBatch batch) {
 		if (isRevealed) {
+			batch.setColor(1, 1, 1,  isRainbow ? 1 : 0);
+			
 			tex1.bind(1);
 			tex0.bind(0);
 			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
+			
+			batch.setColor(Color.WHITE);
 		}
 	}
 
@@ -82,6 +86,14 @@ public class Tile {
 	public void makeRainbow(int dx){
 		if(type == TileType.Free){
 			isRainbow = true;
+			if(y > 0){
+				GamePlayState.tiles[x][y - 1].isRevealed = true;
+			}
+			if(y < GamePlayState.tileHeight - 1){
+				GamePlayState.tiles[x][y + 1].isRevealed = true;
+			}
+			
+			isRevealed = true;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 		}
 	}
@@ -89,7 +101,8 @@ public class Tile {
 	public void removeRainbow(int dx){
 		if(type == TileType.Free){
 			isRainbow = false;
-			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+			
+			GamePlayState.tiles[x + dx][y].removeRainbow(dx);
 		}
 	}
 	

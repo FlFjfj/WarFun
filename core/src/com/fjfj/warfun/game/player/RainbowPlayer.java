@@ -15,15 +15,17 @@ public class RainbowPlayer extends Player {
 	@Override
 	public void update() {
 
-		if (controller.isActionLeftDown())
-				GamePlayState.tiles[x - 1][y].makeRainbow(-1);
-			else if (controller.isActionRightDown())
-				GamePlayState.tiles[x + 1][y].makeRainbow(1);
-		else{
-			GamePlayState.tiles[x - 1][y].removeRainbow(-1);
-			GamePlayState.tiles[x + 1][y].removeRainbow(1);
+		if (controller.isActionLeftDown()) {
+			GamePlayState.tiles[x][y].removeRainbow(1);
+			GamePlayState.tiles[x][y].makeRainbow(-1);
+		} else {
+			GamePlayState.tiles[x][y].removeRainbow(-1);
+			if (controller.isActionRightDown())
+				GamePlayState.tiles[x][y].makeRainbow(1);
+			else
+				GamePlayState.tiles[x][y].removeRainbow(1);
 		}
-			
+
 		super.update();
 	}
 

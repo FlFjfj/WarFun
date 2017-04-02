@@ -71,6 +71,10 @@ public class GamePlayState extends GameState {
 		Tile.tileShader.end();
 		batch.setShader(null);
 		
+		for(int i = 0; i < tileWidth; i++)
+			for(int j = 0; j < tileHeight; j++)
+				tiles[i][j].drawRainbow(batch);
+		
 		player1.draw(batch);
 		player2.draw(batch);
 		
