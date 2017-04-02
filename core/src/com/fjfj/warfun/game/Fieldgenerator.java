@@ -13,7 +13,7 @@ public class Fieldgenerator {
 		w = _w;
 		h = _h;
 
-		param = 5;
+		param = 3;
 	}
 
 	public void blockgen(int xb, int yb, int wb, int hb, int xp, int yp) {
