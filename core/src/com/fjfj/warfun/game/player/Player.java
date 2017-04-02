@@ -86,7 +86,7 @@ public abstract class Player {
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
-			if ((controller.isMoveRightDown()) && (Math.abs(offsetY) <= Tile.SIZE / 5
+			if ((controller.isMoveRightDown() || GamePlayState.tiles[x + 1][y].isRainbow) && (Math.abs(offsetY) <= Tile.SIZE / 5
 					|| GamePlayState.tiles[x + 1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
