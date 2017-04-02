@@ -98,12 +98,4 @@ public class Tile {
 		}
 	}
 	
-	public void removeRainbow(int dx){
-		if(type == TileType.Free){
-			isRainbow = false;
-			
-			GamePlayState.tiles[x + dx][y].removeRainbow(dx);
-		}
-	}
-	
 }

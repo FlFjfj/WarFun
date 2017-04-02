@@ -84,6 +84,10 @@ public class GamePlayState extends GameState {
 	@Override
 	public void update(StateBasedGame game) {
 		
+		for(int i = 0; i < tileWidth; i++)
+			for(int j = 0; j < tileHeight; j++)
+				tiles[i][j].isRainbow = false;
+		
 		player1.update();
 		player2.update();
 		
