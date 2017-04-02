@@ -12,6 +12,7 @@ import com.fjfj.warfun.game.control.KeyBoardController;
 import com.fjfj.warfun.game.player.BuilderPlayer;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
+import com.fjfj.warfun.utils.Assets;
 import com.fjfj.warfun.utils.GameState;
 import com.fjfj.warfun.utils.StateBasedGame;
 
@@ -19,7 +20,7 @@ public class GamePlayState extends GameState {
 
 	public static final int tileWidth = 60;
 	public static final int tileHeight = 30;
-	public static float colorParam = 1;
+	public static float colorParam = 0;
 	
 	public static OrthographicCamera camera;
 	
@@ -43,10 +44,10 @@ public class GamePlayState extends GameState {
 		
 		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
 		tiles = fg.generate();
-		player1 = new RainbowPlayer(new KeyBoardController(), 30, 10);
-		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 24, 10);
-		tiles[30][10].setPlayer(player1);
-		tiles[24][10].setPlayer(player2);
+		player1 = new RainbowPlayer(new KeyBoardController(), 2, 2);
+		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 3, 2);
+		tiles[2][2].setPlayer(player1);
+		tiles[3][2].setPlayer(player2);
 		
 		back = new Background();
 		gui = new Gui();
@@ -102,6 +103,7 @@ public class GamePlayState extends GameState {
 				-(MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE);
 		camera.zoom = 1;
 		camera.update();
+		
 	}
 
 	@Override

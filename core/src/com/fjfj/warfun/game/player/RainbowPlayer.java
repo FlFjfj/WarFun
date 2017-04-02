@@ -27,21 +27,21 @@ public class RainbowPlayer extends Player {
 	public void update() {
 
 		rainbow.update(Gdx.graphics.getDeltaTime());
-		if (mana >= 1) {
+		if (mana >= 0.15) {
 			if (controller.isActionLeftDown()) {
-				mana -= 1;
+				mana -= 30 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(true);
 				GamePlayState.tiles[x - 1][y].makeRainbow(-1, rainbow.getAnimNow());
 			} else if (controller.isActionRightDown()) {
-				mana -= 1;
+				mana -= 30 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(false);
 				GamePlayState.tiles[x + 1][y].makeRainbow(1, rainbow.getAnimNow());
 			} else if (controller.isActionUpDown()) {
 				rainbow.setFlipped(false);
-				mana -= 1;
+				mana -= 30 * Gdx.graphics.getDeltaTime();
 				GamePlayState.tiles[x][y + 1].makeRainbow(0, rainbow.getAnimNow());
 			} else if (controller.isActionDownDown()) {
-				mana -= 1;
+				mana -= 30 * Gdx.graphics.getDeltaTime();
 				rainbow.setFlipped(true);
 				GamePlayState.tiles[x][y - 1].makeRainbow(3, rainbow.getAnimNow());
 			}

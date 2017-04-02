@@ -22,28 +22,35 @@ public class BuilderPlayer extends Player {
 	public void update() {
 		if (mana >= 10) {
 			if (controller.isActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null && x - 1 > 0) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Free)
+					mana -= 10;
 				GamePlayState.tiles[x - 1][y] = new Tile(TileType.Solid, x - 1, y);
-				mana -= 10;
+
 			} else if (controller.isActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
 					&& x + 2 < GamePlayState.tileWidth) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Free)
+					mana -= 10;
 				GamePlayState.tiles[x + 1][y] = new Tile(TileType.Solid, x + 1, y);
-				mana -= 10;
 			} else if (controller.isSecondaryActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null
 					&& x - 1 > 0) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Solid)
+					mana -= 10;
 				GamePlayState.tiles[x - 1][y] = new Tile(TileType.Free, x - 1, y);
-				mana -= 10;
 			} else if (controller.isSecondaryActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
 					&& x + 2 < GamePlayState.tileWidth) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Solid)
+					mana -= 10;
 				GamePlayState.tiles[x + 1][y] = new Tile(TileType.Free, x + 1, y);
-				mana -= 10;
 			} else if (controller.isActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
 					&& y + 2 < GamePlayState.tileHeight) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Free)
+					mana -= 10;
 				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Solid, x, y + 1);
-				mana -= 10;
 			} else if (controller.isSecondaryActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
 					&& y + 2 < GamePlayState.tileHeight) {
+				if (GamePlayState.tiles[x - 1][y].type == TileType.Solid)
+					mana -= 10;
 				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Free, x, y + 1);
-				mana -= 10;
 			}
 		}
 		super.update();

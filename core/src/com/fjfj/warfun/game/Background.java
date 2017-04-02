@@ -21,7 +21,8 @@ public class Background {
 
 		float[] p1 = GamePlayState.player1.getPosition();
 		float[] p2 = GamePlayState.player2.getPosition();
-		Tile.tileShader.setUniformf(Tile.radius_loc, GamePlayState.radius);
+		Tile.tileShader.setUniformf(Tile.radius_loc0, GamePlayState.player1.mana);
+		Tile.tileShader.setUniformf(Tile.radius_loc1, GamePlayState.player2.mana);
 		Tile.tileShader.setUniformf(Tile.time_loc, GamePlayState.time);
 		Tile.tileShader.setUniform2fv(Tile.player0_loc, p1, 0, 2);
 		Tile.tileShader.setUniform2fv(Tile.player1_loc, p2, 0, 2);

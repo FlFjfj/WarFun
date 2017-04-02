@@ -21,6 +21,12 @@ public class Gui {
 				GamePlayState.camera.position.y + MainGame.HEIGHT / 2 - 5);
 		font.draw(batch, "Score: " + score, GamePlayState.camera.position.x - 50,
 											GamePlayState.camera.position.y + MainGame.HEIGHT / 2 - 5);
+		/*font.draw(batch, "Rainbow mana: " + GamePlayState.player1.mana, 
+				GamePlayState.camera.position.x - 50,
+				GamePlayState.camera.position.y + MainGame.HEIGHT / 2 - 20);
+		font.draw(batch, "Builder mana: " + GamePlayState.player2.mana, 
+				GamePlayState.camera.position.x - 50,
+				GamePlayState.camera.position.y + MainGame.HEIGHT / 2 - 35);*/
 	}
 	
 }

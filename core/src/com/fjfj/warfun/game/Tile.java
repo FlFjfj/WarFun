@@ -26,7 +26,8 @@ public class Tile {
 	public static int player1_loc = tileShader.getUniformLocation("u_player1");
 	public static int tex0_loc = tileShader.getUniformLocation("u_texture");
 	public static int tex1_loc = tileShader.getUniformLocation("u_texture1");
-	public static int radius_loc = tileShader.getUniformLocation("radius");
+	public static int radius_loc0 = tileShader.getUniformLocation("radius0");
+	public static int radius_loc1 = tileShader.getUniformLocation("radius1");
 	int rainbow_num;
 	public boolean isRainbow = false;
 	boolean rainbowUp = false;
@@ -66,7 +67,8 @@ public class Tile {
 			}
 
 			batch.setShader(tileShader);
-			tileShader.setUniformf(radius_loc, GamePlayState.radius);
+			tileShader.setUniformf(radius_loc0, GamePlayState.player1.mana);
+			tileShader.setUniformf(radius_loc1, GamePlayState.player2.mana);
 			tileShader.setUniformf(time_loc, GamePlayState.time);
 			tileShader.setUniform2fv(player0_loc, GamePlayState.player1.getPosition(), 0, 2);
 			tileShader.setUniform2fv(player1_loc, GamePlayState.player2.getPosition(), 0, 2);

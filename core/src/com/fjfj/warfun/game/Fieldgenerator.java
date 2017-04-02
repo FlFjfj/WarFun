@@ -86,7 +86,9 @@ public class Fieldgenerator {
 			blockgen(field, MathUtils.random(w - 3 + 1), MathUtils.random(h - 3) + 1, 
 							MathUtils.random(w - 3) + 1, MathUtils.random(h - 3) + 1);
 		
-
+		for(int i=1;i<4;i++)
+			for(int j=1;j<4;j++)
+				field[i][j] = new Tile(TileType.Free,i,j);
 		return field;
 	}
 }

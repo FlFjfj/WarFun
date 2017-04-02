@@ -8,7 +8,9 @@ uniform vec2 u_player1;
 uniform mat4 u_projTrans;
 uniform sampler2D u_texture;
 uniform sampler2D u_texture1;
-uniform float radius;
+uniform float radius0;
+uniform float radius1;
+
 vec3 rgb2hsv(vec3 c)
 {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -38,14 +40,16 @@ void main(){
     bright_color.rgb = hsv2rgb(hsv_color);
 
     vec4 color;
-    float len = min(length(u_player0 - v_position), length(u_player1 - v_position));
-    if(len < radius)
+    float len0 = length(u_player0 - v_position);
+    float len1 = length(u_player1 - v_position);
+
+    if(len0 < radius0 || len1 < radius1)
 	 color = bright_color;
     else{
 	 color = texture2D(u_texture1, v_texCoords);
     }
 
-    len = len - radius;
+    float len = min((len0 - radius0), (len1 - radius1));
     if(len < blur_len && len > 0.)
 	color.xyz =  
 	( mix(0., 1., (blur_len - len) / blur_len) * bright_color.xyz + 

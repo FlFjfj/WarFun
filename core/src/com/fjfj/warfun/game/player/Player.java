@@ -8,11 +8,12 @@ import com.fjfj.warfun.game.Tile;
 import com.fjfj.warfun.game.Tile.TileType;
 import com.fjfj.warfun.game.control.AbstractController;
 import com.fjfj.warfun.utils.AnimatedSprite;
+import com.fjfj.warfun.utils.Assets;
 
 public abstract class Player {
 
 	protected AbstractController controller;
-	public int mana = 100;
+	public float mana = 100;
 
 	public int x;
 
@@ -82,6 +83,8 @@ public abstract class Player {
 					x--;
 					GamePlayState.tiles[x][y].setPlayer(this);
 					offsetX = Tile.SIZE;
+					
+					Assets.hit.play();
 				}
 		if (offsetX == 0)
 			if (controller.isMoveRightDown() || GamePlayState.tiles[x - 1][y].isRainbow)
@@ -92,6 +95,8 @@ public abstract class Player {
 					x++;
 					GamePlayState.tiles[x][y].setPlayer(this);
 					offsetX = -Tile.SIZE;
+					
+					Assets.hit.play();
 				}
 
 		if (offsetY != 0) {
