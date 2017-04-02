@@ -33,9 +33,8 @@ public class Tile {
 
 	public TileType type;
 	public boolean isRevealed = false;;
+	public Pill pill = null;
 
-	
-	
 	public Tile(TileType type, int x, int y) {
 
 		this.type = type;
@@ -60,10 +59,10 @@ public class Tile {
 	}
 
 	public void drawRainbow(SpriteBatch batch) {
-		if(isRainbow)
+		if (isRainbow)
 			batch.draw(rainbow, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
 	}
-	
+
 	public boolean canWalk() {
 		return TileType.Free == type && here == null;
 	}
@@ -71,26 +70,26 @@ public class Tile {
 	public void setPlayer(Player player) {
 		this.here = player;
 		this.isRevealed = false;
-		
-		for(int i = Math.max(0, x - 3); i < Math.min(x + 3, GamePlayState.tileWidth); i++)
-			for(int j = Math.max(0, y - 3); j < Math.min(y + 3, GamePlayState.tileHeight); j++){
-				if(Math.abs(i - x) + Math.abs(j - y) <= 5)
+
+		for (int i = Math.max(0, x - 3); i < Math.min(x + 3, GamePlayState.tileWidth); i++)
+			for (int j = Math.max(0, y - 3); j < Math.min(y + 3, GamePlayState.tileHeight); j++) {
+				if (Math.abs(i - x) + Math.abs(j - y) <= 5)
 					GamePlayState.tiles[i][j].isRevealed = true;
 			}
 	}
 
-	public void makeRainbow(int dx){
-		if(type == TileType.Free){
+	public void makeRainbow(int dx) {
+		if (type == TileType.Free) {
 			isRainbow = true;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 		}
 	}
-	
-	public void removeRainbow(int dx){
-		if(type == TileType.Free){
+
+	public void removeRainbow(int dx) {
+		if (type == TileType.Free) {
 			isRainbow = false;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 		}
 	}
-	
+
 }

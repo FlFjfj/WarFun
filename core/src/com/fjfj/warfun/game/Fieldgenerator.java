@@ -20,11 +20,11 @@ public class Fieldgenerator {
 		if (field[xp][yp].type == TileType.Solid)
 			return;
 		field[xp][yp] = new Tile(TileType.Solid, xp, yp);
-		int dx = MathUtils.random(1) - 1;
-		int dy = MathUtils.random(1) - 1;
+		int dx = MathUtils.random(2) - 1;
+		int dy = MathUtils.random(2) - 1;
 		while (MathUtils.random(param) != 0) {
-			dx = MathUtils.random(1) - 1;
-			dy = MathUtils.random(1) - 1;
+			dx = MathUtils.random(2) - 1;
+			dy = MathUtils.random(2) - 1;
 			if ((xp + dx < wb + xb) && (yp + dy < hb + yb) && (xp + dx >= xb) && (yp + dy >= yb))
 				blockgen(xb, yb, wb, hb, xp + dx, yp + dy);
 		}
