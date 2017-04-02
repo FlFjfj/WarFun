@@ -49,10 +49,7 @@ public abstract class Player {
 	}
 
 	public void update() {
-		if (GamePlayState.tiles[x][y - 1].isRainbow) {
-			velY += 70;
-			offsetY -= 10;
-		}
+
 		if (offsetX > 0) {
 			tex.setFlipped(true);
 			tex.update(Gdx.graphics.getDeltaTime());
@@ -86,9 +83,9 @@ public abstract class Player {
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
-			if ((controller.isMoveRightDown()) && (Math.abs(offsetY) <= Tile.SIZE / 5
-					|| GamePlayState.tiles[x + 1][(int) (y + Math.signum(offsetY))].canWalk()))
-				if (GamePlayState.tiles[x + 1][y].canWalk()) {
+			if (controller.isMoveRightDown() || GamePlayState.tiles[x - 1][y].isRainbow)
+				if (GamePlayState.tiles[x + 1][y].canWalk() && (Math.abs(offsetY) <= Tile.SIZE / 5
+						|| GamePlayState.tiles[x + 1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
 					GamePlayState.tiles[x][y].setPlayer(this);
