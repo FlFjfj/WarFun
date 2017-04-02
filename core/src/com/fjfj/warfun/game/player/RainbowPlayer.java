@@ -18,12 +18,12 @@ public class RainbowPlayer extends Player {
 	@Override
 	public void update() {
 
-		if (controller.isActionLeftDown()) {
-			GamePlayState.tiles[x][y].makeRainbow(-1);
-		} else {
-			if (controller.isActionRightDown())
-				GamePlayState.tiles[x][y].makeRainbow(1);
-		}
+		if (controller.isActionLeftDown())
+			GamePlayState.tiles[x-1][y].makeRainbow(-1);
+		else if (controller.isActionRightDown())
+			GamePlayState.tiles[x+1][y].makeRainbow(1);
+		else if (controller.isActionUpDown())
+			GamePlayState.tiles[x][y+1].makeRainbow(0);
 
 		super.update();
 	}

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.utils.Assets;
@@ -22,9 +23,11 @@ public class Tile {
 	public static int player1_loc = tileShader.getUniformLocation("u_player1");
 	public static int tex0_loc = tileShader.getUniformLocation("u_texture");
 	public static int tex1_loc = tileShader.getUniformLocation("u_texture1");
-	
+
 	static Texture rainbow = Assets.getTexture("rainbow");
+	static TextureRegion rainbowtr = new TextureRegion(rainbow);
 	boolean isRainbow = false;
+	boolean rainbowUp = false;
 
 	public enum TileType {
 		Solid, Free
@@ -54,23 +57,24 @@ public class Tile {
 
 	public void draw(SpriteBatch batch) {
 		if (isRevealed && type == TileType.Solid) {
-			
+
 			if (pill != null) {
 				tex1 = Assets.getTexture("pill");
 				tex0 = Assets.getTexture("pill");
 			}
-			
+
 			batch.setShader(tileShader);
-			
+
 			tileShader.setUniformf(time_loc, GamePlayState.time);
 			tileShader.setUniform2fv(player0_loc, GamePlayState.player1.getPosition(), 0, 2);
 			tileShader.setUniform2fv(player1_loc, GamePlayState.player2.getPosition(), 0, 2);
 			tileShader.setUniformi(tex0_loc, 0);
 			tileShader.setUniformi(tex1_loc, 1);
-			
+
 			tex1.bind(1);
 			tex0.bind(0);
-			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE, Tile.SIZE, Tile.SIZE);
+			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE,
+					Tile.SIZE, Tile.SIZE);
 
 			batch.setShader(null);
 
@@ -78,8 +82,14 @@ public class Tile {
 	}
 
 	public void drawRainbow(SpriteBatch batch) {
-		if (isRainbow)
-			batch.draw(rainbow, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
+		if (isRainbow) {
+			if (!rainbowUp)
+				batch.draw(rainbow, (x - GamePlayState.tileWidth / 2) * SIZE,
+						(y - GamePlayState.tileHeight / 2) * SIZE);
+			else
+				batch.draw(rainbowtr, (x - GamePlayState.tileWidth / 2) * SIZE,
+						(y - GamePlayState.tileHeight / 2) * SIZE, SIZE / 2, SIZE / 2, SIZE, SIZE, 1, 1, 90f);
+		}
 	}
 
 	public boolean canWalk() {
@@ -98,17 +108,23 @@ public class Tile {
 	}
 
 	public void makeRainbow(int dx) {
-		if (type == TileType.Free) {
+		if (type == TileType.Free && here == null) {
 			isRainbow = true;
-			if (y > 0) {
-				GamePlayState.tiles[x][y - 1].isRevealed = true;
+			if (x > 0) {
+				GamePlayState.tiles[x - 1][y].isRevealed = true;
 			}
-			if (y < GamePlayState.tileHeight - 1) {
-				GamePlayState.tiles[x][y + 1].isRevealed = true;
+			if (x < GamePlayState.tileWidth - 1) {
+				GamePlayState.tiles[x + 1][y].isRevealed = true;
 			}
 
 			isRevealed = true;
-			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+			if (dx != 0) {
+				GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+				rainbowUp = false;
+			} else {
+				rainbowUp = true;
+				GamePlayState.tiles[x][y + 1].makeRainbow(dx);
+			}
 		}
 	}
 
