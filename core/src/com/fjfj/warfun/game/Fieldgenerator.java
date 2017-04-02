@@ -8,7 +8,8 @@ public class Fieldgenerator {
 	public int w, h;
 	public Tile field[][];
 	public int param;
-
+	public int placed;
+	
 	public Fieldgenerator(int _w, int _h) {
 		w = _w;
 		h = _h;
@@ -16,42 +17,63 @@ public class Fieldgenerator {
 		param = 3;
 	}
 
-	public void blockgen(int xb, int yb, int wb, int hb, int xp, int yp) {
-		if (field[xp][yp].type == TileType.Solid)
-			return;
-		field[xp][yp] = new Tile(TileType.Solid, xp, yp);
-		int dx = MathUtils.random(2) - 1;
-		int dy = MathUtils.random(2) - 1;
-		while (MathUtils.random(param) != 0) {
-			dx = MathUtils.random(2) - 1;
-			dy = MathUtils.random(2) - 1;
-			if ((xp + dx < wb + xb) && (yp + dy < hb + yb) && (xp + dx >= xb) && (yp + dy >= yb))
-				blockgen(xb, yb, wb, hb, xp + dx, yp + dy);
+	public void blockgen(Tile[][] field, int x1, int y1, int x2, int y2) {
+		int count = Math.abs(x1 - x2) + Math.abs(y1 - y2);
+		placed += count;
+		
+		field[x1][y1] = new Tile(TileType.Solid, x1, y1);
+		field[x2][y2] = new Tile(TileType.Solid, x2, y2);
+		count -= 2;
+		
+		int dx = (int) Math.signum(x2 - x1);
+		int dy = (int) Math.signum(y2 - y1);
+		
+		int posx = x1;
+		int posy = y1;
+		
+		int tick = 0;
+		while(count > 0 && !(posx == x2 && posy == y2) && tick < 1000){
+			//System.out.println(placed);
+			tick++;
+			float r = MathUtils.random();
+			if(r < 0.8)
+				posx += dx;
+			if(r >= 0.8 && r <= 0.9f)
+				posx -= dx;
+			
+			r = MathUtils.random();
+			if(r < 0.8)
+				posy += dy;
+			if(r >= 0.8 && r <= 0.9f)
+				posy -= dy;
+			
+			if(posx > 0 && posx < w - 1 && posy  > 0 && posy < h - 1)
+				if(field[posx][posy].type == TileType.Free){
+					count--;
+					field[posx][posy] = new Tile(TileType.Solid, posx, posy);
+				}else
+					break;
 		}
-
+		
+		placed -= count;
 	}
 
 	public Tile[][] generate() {
-		int wb = 5;
-		int hb = 5;
-		int xb, yb;
-		int xp, yp;
+		
 		field = new Tile[w][h];
+		placed = 0;
+		
 		for (int i = 0; i < w; i++)
 			for (int j = 0; j < h; j++) {
 				field[i][j] = new Tile(TileType.Free, i, j);
 				if (i * j == 0 || i == w - 1 || j == h - 1)
 					field[i][j] = new Tile(TileType.Solid, i, j);
-				//field[i][j].pill = new Pill();
 			}
-		for (int i = 0; i < w / wb; i++)
-			for (int j = 0; j < h / hb; j++) {
-				xb = i * wb;
-				yb = j * hb;
-				xp = MathUtils.random(wb-1) + xb;
-				yp = MathUtils.random(hb-1) + yb;
-				blockgen(xb, yb, wb, hb, xp, yp);
-			}
+
+		while(placed < w * h / 5)
+			blockgen(field, MathUtils.random(w - 3 + 1), MathUtils.random(h - 3) + 1, 
+							MathUtils.random(w - 3) + 1, MathUtils.random(h - 3) + 1);
+		
 
 		return field;
 	}
