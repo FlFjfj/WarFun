@@ -35,12 +35,12 @@ void main(){
 
     vec4 bright_color = texture2D(u_texture, v_texCoords);
     vec3 hsv_color = rgb2hsv(bright_color.rgb);
-    hsv_color.r = (hsv_color.r + u_time / 4) - floor(hsv_color.r + u_time / 4);
+    hsv_color.r = (hsv_color.r + u_time / 4.) - floor(hsv_color.r + u_time / 4.);
     bright_color.rgb = hsv2rgb(hsv_color);
 
     vec4 color;
     float len = min(length(u_player0 - v_position), length(u_player1 - v_position));
-    if(len < radius || v_color.a != 0.)
+    if(len < radius)
 	 color = bright_color;
     else{
 	 color = texture2D(u_texture1, v_texCoords);

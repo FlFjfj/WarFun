@@ -17,7 +17,12 @@ public class Tile {
 	static {
 		System.out.println(tileShader.getLog());
 	}
-
+	public static int time_loc = tileShader.getUniformLocation("u_time");
+	public static int player0_loc = tileShader.getUniformLocation("u_player0");
+	public static int player1_loc = tileShader.getUniformLocation("u_player1");
+	public static int tex0_loc = tileShader.getUniformLocation("u_texture");
+	public static int tex1_loc = tileShader.getUniformLocation("u_texture1");
+	
 	static Texture rainbow = Assets.getTexture("rainbow");
 	boolean isRainbow = false;
 
@@ -43,30 +48,32 @@ public class Tile {
 
 		if (type == TileType.Solid) {
 			tex0 = Assets.getTexture("tile");
-			tex1 = Assets.getTexture("free");
-		} else {
-			tex0 = Assets.getTexture("free2");
 			tex1 = Assets.getTexture("tile2");
 		}
 	}
 
 	public void draw(SpriteBatch batch) {
-		if (isRevealed) {
-			batch.setColor(1, 1, 1, isRainbow ? 1 : 0);
+		if (isRevealed && type == TileType.Solid) {
 			
 			if (pill != null) {
 				tex1 = Assets.getTexture("pill");
 				tex0 = Assets.getTexture("pill");
 			}
 			
+			batch.setShader(tileShader);
+			
+			tileShader.setUniformf(time_loc, GamePlayState.time);
+			tileShader.setUniform2fv(player0_loc, GamePlayState.player1.getPosition(), 0, 2);
+			tileShader.setUniform2fv(player1_loc, GamePlayState.player2.getPosition(), 0, 2);
+			tileShader.setUniformi(tex0_loc, 0);
+			tileShader.setUniformi(tex1_loc, 1);
+			
 			tex1.bind(1);
 			tex0.bind(0);
 			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE, Tile.SIZE, Tile.SIZE);
-			tex1.bind();
-			tex0.bind();
 
+			batch.setShader(null);
 
-			batch.setColor(Color.WHITE);
 		}
 	}
 

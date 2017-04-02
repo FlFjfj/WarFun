@@ -137,4 +137,9 @@ public abstract class Player {
 
 	}
 
+	public float[] getPosition(){
+		return new float[]{(x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
+				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY};
+	}
+	
 }

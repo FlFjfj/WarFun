@@ -23,10 +23,11 @@ public class GamePlayState extends GameState {
 	public static OrthographicCamera camera;
 	
 	public static Tile[][] tiles;
-	Player player1;
-	Player player2;
+	public static Player player1;
+	public static Player player2;
+	Background back;
 	
-	float time = 0;
+	public static float time = 0;
 	
 	public GamePlayState(int StateId, MainGame game) {
 		super(StateId, game);
@@ -42,6 +43,8 @@ public class GamePlayState extends GameState {
 		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 24, 10);
 		tiles[30][10].setPlayer(player1);
 		tiles[24][10].setPlayer(player2);
+		
+		back = new Background();
 
 	}
 	
@@ -55,32 +58,14 @@ public class GamePlayState extends GameState {
 		batch.setProjectionMatrix(camera.combined);
 		
 		batch.begin();
-		
-		batch.setShader(Tile.tileShader);
-		Tile.tileShader.begin();
-		
-		Tile.tileShader.setUniformf(Tile.tileShader.getUniformLocation("u_time"), time);
-		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player0"), 
-				new float[]{(player1.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player1.offsetX + Tile.SIZE / 2,
-							(player1.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player1.offsetY + Tile.SIZE / 2},
-				0, 2);
-		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player1"), 
-				new float[]{(player2.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player2.offsetX + Tile.SIZE / 2,
-							(player2.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player2.offsetY + Tile.SIZE / 2},
-				0, 2);
-		
-		Tile.tileShader.setUniformi(Tile.tileShader.getUniformLocation("u_texture1"), 1);
+				
+		back.draw(batch);
 		
 		for(int i = 0; i < tileWidth; i++)
-			for(int j = 0; j < tileHeight; j++)
-				tiles[i][j].draw(batch);
-		
-		Tile.tileShader.end();
-		batch.setShader(null);
-		
-		for(int i = 0; i < tileWidth; i++)
-			for(int j = 0; j < tileHeight; j++)
-				tiles[i][j].drawRainbow(batch);
+			for(int j = 0; j < tileHeight; j++){
+					tiles[i][j].draw(batch);
+					tiles[i][j].drawRainbow(batch);
+			}
 		
 		player1.draw(batch);
 		player2.draw(batch);
@@ -108,7 +93,7 @@ public class GamePlayState extends GameState {
 				-(MainGame.WIDTH / Tile.SIZE / 2 - tileWidth / 2) * Tile.SIZE);
 		camera.position.y = MathUtils.clamp(y, (MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE,
 				-(MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE);
-
+		camera.zoom = 1;
 		camera.update();
 	}
 
