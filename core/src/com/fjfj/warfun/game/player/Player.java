@@ -64,7 +64,7 @@ public abstract class Player {
 		}
 
 		if (offsetX == 0)
-			if (controller.isMoveLeftDown())
+			if (controller.isMoveLeftDown() || GamePlayState.tiles[x+1][y].isRainbow)
 				if (GamePlayState.tiles[x - 1][y].canWalk() &&
 						(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x-1][(int) (y + Math.signum(offsetY))].canWalk())) {
 					GamePlayState.tiles[x][y].here = null;
@@ -73,8 +73,7 @@ public abstract class Player {
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
-
-			if (controller.isMoveRightDown() &&
+			if ((controller.isMoveRightDown()|| GamePlayState.tiles[x-1][y].isRainbow) &&
 					(Math.abs(offsetY) <= Tile.SIZE/5 ||  GamePlayState.tiles[x+1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
@@ -94,7 +93,7 @@ public abstract class Player {
 			if (velY > 0) {
 				if (offsetY >= 0) {
 					float t = velY / G;
-					if (velY * t - G * t * t / 2 >= Tile.SIZE && GamePlayState.tiles[x][y + 1].canWalk())/* &&
+					if (((velY * t - G * t * t / 2 >= Tile.SIZE) || GamePlayState.tiles[x][y-1].isRainbow) && GamePlayState.tiles[x][y + 1].canWalk())/* &&
 						(offsetX == 0 ||  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][(int) (y + Math.signum(offsetY))].canWalk()))*/{
 						offsetY -= Tile.SIZE;
 						GamePlayState.tiles[x][y].here = null;
@@ -112,7 +111,7 @@ public abstract class Player {
 			}
 		}
 
-		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0 && 
+		if (GamePlayState.tiles[x][y - 1].canWalk()&& !GamePlayState.tiles[x][y-1].isRainbow && offsetY == 0 && 
 				(Math.abs(offsetX) <= Tile.SIZE/5|| GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y-1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
@@ -122,8 +121,8 @@ public abstract class Player {
 			offsetY = Tile.SIZE;
 		}
 
-		if (offsetY == 0 && controller.isUpDown() && (!GamePlayState.tiles[x][y - 1].canWalk() ||
-				(Math.abs(offsetX) >= Tile.SIZE/5 &&  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y ].canWalk()))) {
+		if ((offsetY == 0 && controller.isUpDown() && (!GamePlayState.tiles[x][y - 1].canWalk() ||
+				(Math.abs(offsetX) >= Tile.SIZE/5 &&  GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y].canWalk()))) || GamePlayState.tiles[x][y-1].isRainbow) {
 			if (GamePlayState.tiles[x][y + 1].canWalk() 
 					&& (Math.abs(offsetX) <= Tile.SIZE/5 || GamePlayState.tiles[(int) (x+Math.signum(offsetX))][y+1].canWalk())) {
 				offsetY = -Tile.SIZE;

@@ -26,7 +26,7 @@ public class Tile {
 
 	static Texture rainbow = Assets.getTexture("rainbow");
 	static TextureRegion rainbowtr = new TextureRegion(rainbow);
-	boolean isRainbow = false;
+	public boolean isRainbow = false;
 	boolean rainbowUp = false;
 
 	public enum TileType {
