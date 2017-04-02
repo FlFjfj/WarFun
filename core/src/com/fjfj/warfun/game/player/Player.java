@@ -36,20 +36,23 @@ public abstract class Player {
 	}
 
 	public void draw(SpriteBatch batch) {
-		
-		if(GamePlayState.tiles[x][y - 1].type == TileType.Free && GamePlayState.tiles[x][y - 1].here == null){
+		if (GamePlayState.tiles[x][y - 1].type == TileType.Free && GamePlayState.tiles[x][y - 1].here == null) {
 			batch.draw(fly, (x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
-					(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY, Tile.SIZE, Tile.SIZE, 0, 0, 100, 100, offsetX > 0, false);
+					(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY, Tile.SIZE, Tile.SIZE, 0, 0, 100, 100,
+					offsetX > 0, false);
 			return;
 		}
-		
+
 		tex.setPosition((x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX,
 				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY);
 		tex.draw(batch);
 	}
 
 	public void update() {
-
+		if (GamePlayState.tiles[x][y - 1].isRainbow) {
+			velY += 70;
+			offsetY -= 10;
+		}
 		if (offsetX > 0) {
 			tex.setFlipped(true);
 			tex.update(Gdx.graphics.getDeltaTime());
@@ -83,9 +86,8 @@ public abstract class Player {
 					offsetX = Tile.SIZE;
 				}
 		if (offsetX == 0)
-			if ((controller.isMoveRightDown() || GamePlayState.tiles[x - 1][y].isRainbow)
-					&& (Math.abs(offsetY) <= Tile.SIZE / 5
-							|| GamePlayState.tiles[x + 1][(int) (y + Math.signum(offsetY))].canWalk()))
+			if ((controller.isMoveRightDown()) && (Math.abs(offsetY) <= Tile.SIZE / 5
+					|| GamePlayState.tiles[x + 1][(int) (y + Math.signum(offsetY))].canWalk()))
 				if (GamePlayState.tiles[x + 1][y].canWalk()) {
 					GamePlayState.tiles[x][y].here = null;
 					x++;
@@ -105,9 +107,7 @@ public abstract class Player {
 				if (offsetY >= 0) {
 					float t = velY / G;
 					if (GamePlayState.tiles[x][y + 1].canWalk()) {
-						if ((velY * t - G * t * t / 2 >= Tile.SIZE) || GamePlayState.tiles[x][y - 1].isRainbow) {
-							if(GamePlayState.tiles[x][y - 1].isRainbow)
-								velY = startVelY / 4;
+						if ((velY * t - G * t * t / 2 >= Tile.SIZE)) {
 							offsetY -= Tile.SIZE;
 							GamePlayState.tiles[x][y].here = null;
 							y++;
@@ -126,9 +126,8 @@ public abstract class Player {
 			}
 		}
 
-		if (GamePlayState.tiles[x][y - 1].canWalk() && !GamePlayState.tiles[x][y - 1].isRainbow && offsetY == 0
-				&& (Math.abs(offsetX) <= Tile.SIZE / 5
-						|| GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y - 1].canWalk())) {
+		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0 && (Math.abs(offsetX) <= Tile.SIZE / 5
+				|| GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y - 1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;
 			y--;
 			GamePlayState.tiles[x][y].setPlayer(this);
@@ -139,8 +138,7 @@ public abstract class Player {
 
 		if ((offsetY == 0 && controller.isUpDown()
 				&& (!GamePlayState.tiles[x][y - 1].canWalk() || (Math.abs(offsetX) >= Tile.SIZE / 5
-						&& GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y].canWalk())))
-				|| GamePlayState.tiles[x][y - 1].isRainbow) {
+						&& GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y].canWalk())))) {
 			if (GamePlayState.tiles[x][y + 1].canWalk() && (Math.abs(offsetX) <= Tile.SIZE / 5
 					|| GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y + 1].canWalk())) {
 				offsetY = -Tile.SIZE;
@@ -151,14 +149,14 @@ public abstract class Player {
 				GamePlayState.tiles[x][y].setPlayer(this);
 			}
 		}
-		if( offsetX == 0 && offsetY==0)
-			velY=0;
+		if (offsetX == 0 && offsetY == 0)
+			velY = 0;
 
 	}
 
 	public float[] getPosition() {
 		return new float[] { (x - GamePlayState.tileWidth / 2) * Tile.SIZE + offsetX + Tile.SIZE / 2,
-				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY + Tile.SIZE / 2};
-}
+				(y - GamePlayState.tileHeight / 2) * Tile.SIZE + offsetY + Tile.SIZE / 2 };
+	}
 
 }

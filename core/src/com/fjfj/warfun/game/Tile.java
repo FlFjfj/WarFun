@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.utils.Assets;
 
@@ -45,7 +46,10 @@ public class Tile {
 
 	public Tile(TileType type, int x, int y) {
 
-		this.type = type;
+		this.type = type; 
+		if(this.type == TileType.Free)
+			if(MathUtils.random(9) == 0)
+				this.pill = new Pill(MathUtils.randomBoolean(),MathUtils.randomBoolean());
 		this.x = x;
 		this.y = y;
 
@@ -99,7 +103,9 @@ public class Tile {
 	public void setPlayer(Player player) {
 		this.here = player;
 		this.isRevealed = false;
-
+		if(this.pill != null)
+			pill.doEffect();
+		this.pill = null;
 		for (int i = Math.max(0, x - 3); i < Math.min(x + 3, GamePlayState.tileWidth); i++)
 			for (int j = Math.max(0, y - 3); j < Math.min(y + 3, GamePlayState.tileHeight); j++) {
 				if (Math.abs(i - x) + Math.abs(j - y) <= 5)
