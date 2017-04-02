@@ -32,7 +32,7 @@ public class Tile {
 	Texture tex1;
 
 	public TileType type;
-	public boolean isRevealed = false;;
+	public boolean isRevealed = true;
 	public Pill pill = null;
 
 	public Tile(TileType type, int x, int y) {
@@ -45,19 +45,27 @@ public class Tile {
 			tex0 = Assets.getTexture("tile");
 			tex1 = Assets.getTexture("tile2");
 		} else {
-			tex0 = Assets.getTexture("free");
-			tex1 = Assets.getTexture("free2");
+			if (pill != null) {
+				tex1 = Assets.getTexture("pill");
+				tex0 = Assets.getTexture("pill");
+			} else {
+				tex0 = Assets.getTexture("free");
+				tex1 = Assets.getTexture("free2");
+			}
 		}
 	}
 
 	public void draw(SpriteBatch batch) {
 		if (isRevealed) {
-			batch.setColor(1, 1, 1,  isRainbow ? 1 : 0);
-			
+			batch.setColor(1, 1, 1, isRainbow ? 1 : 0);
+			if (pill != null) {
+				tex1 = Assets.getTexture("pill");
+				tex0 = Assets.getTexture("pill");
+			}
 			tex1.bind(1);
 			tex0.bind(0);
 			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
-			
+
 			batch.setColor(Color.WHITE);
 		}
 	}
@@ -85,23 +93,22 @@ public class Tile {
 	public void makeRainbow(int dx) {
 		if (type == TileType.Free) {
 			isRainbow = true;
-			if(y > 0){
+			if (y > 0) {
 				GamePlayState.tiles[x][y - 1].isRevealed = true;
 			}
-			if(y < GamePlayState.tileHeight - 1){
+			if (y < GamePlayState.tileHeight - 1) {
 				GamePlayState.tiles[x][y + 1].isRevealed = true;
 			}
-			
+
 			isRevealed = true;
 			GamePlayState.tiles[x + dx][y].makeRainbow(dx);
 		}
 	}
 
-
 	public void removeRainbow(int dx) {
 		if (type == TileType.Free) {
 			isRainbow = false;
-			
+
 			GamePlayState.tiles[x + dx][y].removeRainbow(dx);
 		}
 	}

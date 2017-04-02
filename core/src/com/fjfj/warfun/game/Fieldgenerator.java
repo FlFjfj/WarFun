@@ -42,6 +42,7 @@ public class Fieldgenerator {
 				field[i][j] = new Tile(TileType.Free, i, j);
 				if (i * j == 0 || i == w - 1 || j == h - 1)
 					field[i][j] = new Tile(TileType.Solid, i, j);
+				field[i][j].pill = new Pill();
 			}
 		for (int i = 0; i < w / wb; i++)
 			for (int j = 0; j < h / hb; j++) {
