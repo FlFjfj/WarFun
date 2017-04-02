@@ -18,13 +18,13 @@ public class BuilderPlayer extends Player {
 	@Override
 	public void update() {
 
-		if (controller.isActionLeftDown())
+		if (controller.isActionLeftDown() && GamePlayState.tiles[x-1][y].here == null && x-1 > 0)
 			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Solid, x - 1, y);
-		else if(controller.isActionRightDown())
+		else if(controller.isActionRightDown() && GamePlayState.tiles[x+1][y].here == null && x+2 < GamePlayState.tileWidth)
 			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Solid, x + 1, y);
-		else if(controller.isSecondaryActionLeftDown())
+		else if(controller.isSecondaryActionLeftDown() && GamePlayState.tiles[x-1][y].here == null && x-1 > 0)
 			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Free, x - 1, y);
-		else if(controller.isSecondaryActionRightDown())
+		else if(controller.isSecondaryActionRightDown() && GamePlayState.tiles[x-1][y].here == null && x+2 < GamePlayState.tileWidth)
 			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Free, x + 1, y);
 
 		GamePlayState.tiles[x + 1][y].isRevealed = true;
