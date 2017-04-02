@@ -37,9 +37,6 @@ public class BuilderPlayer extends Player {
 		else if (controller.isSecondaryActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
 				&& y + 2 < GamePlayState.tileHeight)
 			GamePlayState.tiles[x][y+1] = new Tile(TileType.Free, x, y + 1);
-		GamePlayState.tiles[x + 1][y].isRevealed = true;
-		GamePlayState.tiles[x - 1][y].isRevealed = true;
-		GamePlayState.tiles[x][y + 1].isRevealed = true;
 		super.update();
 	}
 
