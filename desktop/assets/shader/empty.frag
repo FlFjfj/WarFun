@@ -8,7 +8,7 @@ uniform vec2 u_player1;
 uniform mat4 u_projTrans;
 uniform sampler2D u_texture;
 uniform sampler2D u_texture1;
-
+uniform float radius;
 vec3 rgb2hsv(vec3 c)
 {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -31,7 +31,6 @@ vec3 hsv2rgb(vec3 c)
 void main(){
 
     const float blur_len = 50.;
-    const float radius = 100.;
 
     vec4 bright_color = texture2D(u_texture, v_texCoords);
     vec3 hsv_color = rgb2hsv(bright_color.rgb);

@@ -12,6 +12,7 @@ import com.fjfj.warfun.utils.AnimatedSprite;
 public abstract class Player {
 
 	protected AbstractController controller;
+	public int mana = 100;
 
 	public int x;
 

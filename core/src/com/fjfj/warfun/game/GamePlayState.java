@@ -26,6 +26,7 @@ public class GamePlayState extends GameState {
 	public static Tile[][] tiles;
 	public static Player player1;
 	public static Player player2;
+	public static float radius = 100;
 	
 	Background back;
 	Gui gui;

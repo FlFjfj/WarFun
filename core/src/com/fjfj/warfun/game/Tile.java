@@ -26,7 +26,7 @@ public class Tile {
 	public static int player1_loc = tileShader.getUniformLocation("u_player1");
 	public static int tex0_loc = tileShader.getUniformLocation("u_texture");
 	public static int tex1_loc = tileShader.getUniformLocation("u_texture1");
-
+	public static int radius_loc = tileShader.getUniformLocation("radius");
 	int rainbow_num;
 	public boolean isRainbow = false;
 	boolean rainbowUp = false;
@@ -43,13 +43,11 @@ public class Tile {
 
 	public TileType type;
 	public Pill pill = null;
-
+	public Texture pilltex;
 	public Tile(TileType type, int x, int y) {
 
 		this.type = type; 
-		if(this.type == TileType.Free)
-			if(MathUtils.random(9) == 0)
-				this.pill = new Pill(MathUtils.randomBoolean(),MathUtils.randomBoolean());
+		
 		this.x = x;
 		this.y = y;
 
@@ -68,7 +66,7 @@ public class Tile {
 			}
 
 			batch.setShader(tileShader);
-
+			tileShader.setUniformf(radius_loc, GamePlayState.radius);
 			tileShader.setUniformf(time_loc, GamePlayState.time);
 			tileShader.setUniform2fv(player0_loc, GamePlayState.player1.getPosition(), 0, 2);
 			tileShader.setUniform2fv(player1_loc, GamePlayState.player2.getPosition(), 0, 2);
@@ -79,7 +77,6 @@ public class Tile {
 			tex0.bind(0);
 			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE,
 					Tile.SIZE, Tile.SIZE);
-
 			batch.setShader(null);
 
 		}
@@ -102,6 +99,9 @@ public class Tile {
 				RainbowPlayer.rainbow.img[rainbow_num].draw(batch);
 			}
 		}
+		if(pill != null){
+			batch.draw(pilltex,(x - GamePlayState.tileWidth / 2) * SIZE,(y - GamePlayState.tileHeight / 2) * SIZE,SIZE,SIZE);
+		}
 	}
 
 	public boolean canWalk() {
@@ -111,8 +111,10 @@ public class Tile {
 	public void setPlayer(Player player) {
 		this.here = player;
 
-		if(this.pill != null)
+		if(this.pill != null){
 			pill.doEffect();
+			player.mana += 10;
+		}
 		this.pill = null;
 	}
 

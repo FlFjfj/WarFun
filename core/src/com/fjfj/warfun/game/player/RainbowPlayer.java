@@ -27,19 +27,24 @@ public class RainbowPlayer extends Player {
 	public void update() {
 
 		rainbow.update(Gdx.graphics.getDeltaTime());
-
-		if (controller.isActionLeftDown()) {
-			rainbow.setFlipped(true);
-			GamePlayState.tiles[x - 1][y].makeRainbow(-1, rainbow.getAnimNow());
-		} else if (controller.isActionRightDown()) {
-			rainbow.setFlipped(false);
-			GamePlayState.tiles[x + 1][y].makeRainbow(1, rainbow.getAnimNow());
-		} else if (controller.isActionUpDown()) {
-			rainbow.setFlipped(false);
-			GamePlayState.tiles[x][y + 1].makeRainbow(0, rainbow.getAnimNow());
-		} else if (controller.isActionDownDown()) {
-			rainbow.setFlipped(true);
-			GamePlayState.tiles[x][y - 1].makeRainbow(3, rainbow.getAnimNow());
+		if (mana >= 1) {
+			if (controller.isActionLeftDown()) {
+				mana -= 1;
+				rainbow.setFlipped(true);
+				GamePlayState.tiles[x - 1][y].makeRainbow(-1, rainbow.getAnimNow());
+			} else if (controller.isActionRightDown()) {
+				mana -= 1;
+				rainbow.setFlipped(false);
+				GamePlayState.tiles[x + 1][y].makeRainbow(1, rainbow.getAnimNow());
+			} else if (controller.isActionUpDown()) {
+				rainbow.setFlipped(false);
+				mana -= 1;
+				GamePlayState.tiles[x][y + 1].makeRainbow(0, rainbow.getAnimNow());
+			} else if (controller.isActionDownDown()) {
+				mana -= 1;
+				rainbow.setFlipped(true);
+				GamePlayState.tiles[x][y - 1].makeRainbow(3, rainbow.getAnimNow());
+			}
 		}
 		super.update();
 	}

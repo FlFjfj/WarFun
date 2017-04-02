@@ -3,6 +3,7 @@ package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.Tile.TileType;
+import com.fjfj.warfun.utils.Assets;
 
 public class Fieldgenerator {
 	public int w, h;
@@ -66,6 +67,17 @@ public class Fieldgenerator {
 		for (int i = 0; i < w; i++)
 			for (int j = 0; j < h; j++) {
 				field[i][j] = new Tile(TileType.Free, i, j);
+					if(MathUtils.random(9) == 0){
+						field[i][j].pill = new Pill(MathUtils.randomBoolean(),MathUtils.randomBoolean());
+						if(field[i][j].pill.color == true)
+							field[i][j].pilltex = Assets.getTexture("pill1");
+						else{
+							if(field[i][j].pill.geometry)
+								field[i][j].pilltex = Assets.getTexture("tablet2");
+							else
+								field[i][j].pilltex = Assets.getTexture("tablet3");
+						}
+					}
 				if (i * j == 0 || i == w - 1 || j == h - 1)
 					field[i][j] = new Tile(TileType.Solid, i, j);
 			}

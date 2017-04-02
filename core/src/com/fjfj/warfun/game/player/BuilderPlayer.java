@@ -13,30 +13,39 @@ public class BuilderPlayer extends Player {
 		super(control, x, y);
 
 		super.fly = Assets.getTexture("player2_fly");
-		
+
 		super.tex = new AnimatedSprite(0, 0, 50, 50, Assets.getTexture("player2"), 0);
 		super.tex.setSize(Tile.SIZE, Tile.SIZE);
 	}
 
 	@Override
 	public void update() {
-
-		if (controller.isActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null && x - 1 > 0)
-			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Solid, x - 1, y);
-		else if (controller.isActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
-				&& x + 2 < GamePlayState.tileWidth)
-			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Solid, x + 1, y);
-		else if (controller.isSecondaryActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null && x - 1 > 0)
-			GamePlayState.tiles[x - 1][y] = new Tile(TileType.Free, x - 1, y);
-		else if (controller.isSecondaryActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
-				&& x + 2 < GamePlayState.tileWidth)
-			GamePlayState.tiles[x + 1][y] = new Tile(TileType.Free, x + 1, y);
-		else if (controller.isActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
-				&& y + 2 < GamePlayState.tileHeight)
-			GamePlayState.tiles[x][y+1] = new Tile(TileType.Solid, x, y + 1);
-		else if (controller.isSecondaryActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
-				&& y + 2 < GamePlayState.tileHeight)
-			GamePlayState.tiles[x][y+1] = new Tile(TileType.Free, x, y + 1);
+		if (mana >= 10) {
+			if (controller.isActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null && x - 1 > 0) {
+				GamePlayState.tiles[x - 1][y] = new Tile(TileType.Solid, x - 1, y);
+				mana -= 10;
+			} else if (controller.isActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
+					&& x + 2 < GamePlayState.tileWidth) {
+				GamePlayState.tiles[x + 1][y] = new Tile(TileType.Solid, x + 1, y);
+				mana -= 10;
+			} else if (controller.isSecondaryActionLeftDown() && GamePlayState.tiles[x - 1][y].here == null
+					&& x - 1 > 0) {
+				GamePlayState.tiles[x - 1][y] = new Tile(TileType.Free, x - 1, y);
+				mana -= 10;
+			} else if (controller.isSecondaryActionRightDown() && GamePlayState.tiles[x + 1][y].here == null
+					&& x + 2 < GamePlayState.tileWidth) {
+				GamePlayState.tiles[x + 1][y] = new Tile(TileType.Free, x + 1, y);
+				mana -= 10;
+			} else if (controller.isActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
+					&& y + 2 < GamePlayState.tileHeight) {
+				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Solid, x, y + 1);
+				mana -= 10;
+			} else if (controller.isSecondaryActionUpDown() && GamePlayState.tiles[x][y + 1].here == null
+					&& y + 2 < GamePlayState.tileHeight) {
+				GamePlayState.tiles[x][y + 1] = new Tile(TileType.Free, x, y + 1);
+				mana -= 10;
+			}
+		}
 		super.update();
 	}
 
