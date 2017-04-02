@@ -1,11 +1,12 @@
 package com.fjfj.warfun.game;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.utils.Assets;
 
 public class Pill {
 	public boolean geometry = false;
 	public boolean color = false;
-	public static int delta = 1;
+	public static float delta = 0.2f;
 	public Pill(boolean geometry,boolean color){
 		this.geometry = geometry;
 		this.color = color;
@@ -15,10 +16,9 @@ public class Pill {
 		Assets.pill.play();
 		
 		Gui.score += 50;
-		GamePlayState.radius += 10f;
-		if(GamePlayState.colorParam >= 10 || GamePlayState.colorParam <= 0)
-			delta *= -1.1;
-		GamePlayState.colorParam += delta;
+		if(delta < 5)
+			delta += 0.2f;
+		GamePlayState.colorParam  = MathUtils.random(delta * 2) - delta ;
 	}
 
 }

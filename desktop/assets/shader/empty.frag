@@ -32,7 +32,7 @@ vec3 hsv2rgb(vec3 c)
 
 void main(){
 
-    const float blur_len = 50.;
+    const float blur_len = 30.;
 
     vec4 bright_color = texture2D(u_texture, v_texCoords);
     vec3 hsv_color = rgb2hsv(bright_color.rgb);
@@ -49,15 +49,15 @@ void main(){
 	 color = texture2D(u_texture1, v_texCoords);
     }
 
-    /*vec2 dir;
+    vec2 dir;
     if(len0 < len1)
-        dir = -(u_player0 - v_position).nor;
+        dir = normalize(-(u_player0 - v_position));
     else
-        dir = -(u_player1 - v_position).nor*/       
-    //float angle = 
+        dir = normalize(-(u_player1 - v_position));       
+    float angle = atan(dir.y, dir.x);
 
     float len = min((len0 - radius0), (len1 - radius1));
-    float flen = blur_len * abs(cos(u_time * 5.));
+    float flen = blur_len * abs(sin(u_time * 4 + angle * 16));
     if(len < flen && len > 0.)
 	color.xyz =  
 	  mix(0., 1., (flen - len) / flen) * bright_color.xyz + 
