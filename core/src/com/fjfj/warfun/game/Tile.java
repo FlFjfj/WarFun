@@ -41,7 +41,6 @@ public class Tile {
 	Texture tex1;
 
 	public TileType type;
-	public boolean isRevealed = false;
 	public Pill pill = null;
 
 	public Tile(TileType type, int x, int y) {
@@ -57,7 +56,7 @@ public class Tile {
 	}
 
 	public void draw(SpriteBatch batch) {
-		if (isRevealed && type == TileType.Solid) {
+		if (type == TileType.Solid) {
 
 			if (pill != null) {
 				tex1 = Assets.getTexture("pill");
@@ -107,28 +106,13 @@ public class Tile {
 
 	public void setPlayer(Player player) {
 		this.here = player;
-		this.isRevealed = false;
-
-		for (int i = Math.max(0, x - 3); i < Math.min(x + 3, GamePlayState.tileWidth); i++)
-			for (int j = Math.max(0, y - 3); j < Math.min(y + 3, GamePlayState.tileHeight); j++) {
-				if (Math.abs(i - x) + Math.abs(j - y) <= 5)
-					GamePlayState.tiles[i][j].isRevealed = true;
-			}
 	}
 
 	public void makeRainbow(int dx, int delta) {
 		if (type == TileType.Free && here == null) {
 			isRainbow = true;
 			rainbow_num = delta % RainbowPlayer.rainbow.getAnimCount();
-			
-			if (x > 0) {
-				GamePlayState.tiles[x - 1][y].isRevealed = true;
-			}
-			if (x < GamePlayState.tileWidth - 1) {
-				GamePlayState.tiles[x + 1][y].isRevealed = true;
-			}
 
-			isRevealed = true;
 			if (Math.abs(dx) == 1 ) {
 				GamePlayState.tiles[x + dx][y].makeRainbow(dx, delta + 1);
 				rainbowUp = false;
