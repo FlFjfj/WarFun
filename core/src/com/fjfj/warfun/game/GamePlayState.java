@@ -91,7 +91,7 @@ public class GamePlayState extends GameState {
 				   player2.offsetY + (player2.y - tileHeight / 2) * Tile.SIZE) / 2;
 		camera.position.x = MathUtils.clamp(x, (MainGame.WIDTH / Tile.SIZE / 2 - tileWidth / 2) * Tile.SIZE,
 				-(MainGame.WIDTH / Tile.SIZE / 2 - tileWidth / 2) * Tile.SIZE);
-		camera.position.y = MathUtils.clamp(y, (MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE,
+		camera.position.y = MathUtils.clamp(y, (MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2 + 1) * Tile.SIZE,
 				-(MainGame.HEIGHT / Tile.SIZE / 2 - tileHeight / 2) * Tile.SIZE);
 		camera.zoom = 1;
 		camera.update();

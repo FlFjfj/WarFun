@@ -30,8 +30,8 @@ vec3 hsv2rgb(vec3 c)
 
 void main(){
 
-    const float blur_len = 40.;
-    const float radius = 200.;
+    const float blur_len = 50.;
+    const float radius = 100.;
 
     vec4 bright_color = texture2D(u_texture, v_texCoords);
     vec3 hsv_color = rgb2hsv(bright_color.rgb);
@@ -47,7 +47,7 @@ void main(){
     }
 
     len = len - radius;
-    if(len < blur_len && len > 0. && v_color.a == 0.)
+    if(len < blur_len && len > 0.)
 	color.xyz =  
 	( mix(0., 1., (blur_len - len) / blur_len) * bright_color.xyz + 
 	  mix(0., 1., len / blur_len) * texture2D(u_texture1, v_texCoords).xyz);
