@@ -10,6 +10,7 @@ public class Pill {
 	}
 	public void doEffect() {
 		Gui.score += 50;
+		GamePlayState.radius += 10f;
 		if(GamePlayState.colorParam >= 10 || GamePlayState.colorParam <= 0)
 			delta *= -1.2;
 		GamePlayState.colorParam += delta;

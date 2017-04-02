@@ -12,6 +12,7 @@ import com.fjfj.warfun.utils.AnimatedSprite;
 public abstract class Player {
 
 	protected AbstractController controller;
+	public int mana = 100;
 
 	public int x;
 
@@ -105,8 +106,10 @@ public abstract class Player {
 				if (offsetY >= 0) {
 					float t = velY / G;
 					if (GamePlayState.tiles[x][y + 1].canWalk()) {
-						if ((velY * t - G * t * t / 2 >= Tile.SIZE)) {
+						if ((velY * t - G * t * t / 2 >= Tile.SIZE) || GamePlayState.tiles[x][y - 1].isRainbow) {
 							offsetY -= Tile.SIZE;
+							if(GamePlayState.tiles[x][y - 1].isRainbow)
+								velY = startVelY / 2;
 							GamePlayState.tiles[x][y].here = null;
 							y++;
 							GamePlayState.tiles[x][y].setPlayer(this);
@@ -119,11 +122,22 @@ public abstract class Player {
 			}
 
 			if (velY <= 0) {
-				if (offsetY <= 0)
-					offsetY = 0;
+				if(GamePlayState.tiles[x][y-1].isRainbow)
+					velY = startVelY/2;
+				else
+					if (offsetY <= 0)
+						offsetY = 0;
 			}
 		}
 
+		if (GamePlayState.tiles[x][y + 1].canWalk() && GamePlayState.tiles[x][y-1].isRainbow && offsetY == 0) {
+			GamePlayState.tiles[x][y].here = null;
+			y++;
+			GamePlayState.tiles[x][y].setPlayer(this);
+			velY = startVelY;
+			offsetY = -Tile.SIZE;
+		}
+		
 		if (GamePlayState.tiles[x][y - 1].canWalk() && offsetY == 0 && (Math.abs(offsetX) <= Tile.SIZE / 5
 				|| GamePlayState.tiles[(int) (x + Math.signum(offsetX))][y - 1].canWalk())) {
 			GamePlayState.tiles[x][y].here = null;

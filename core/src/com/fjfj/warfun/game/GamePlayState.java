@@ -26,6 +26,7 @@ public class GamePlayState extends GameState {
 	public static Tile[][] tiles;
 	public static Player player1;
 	public static Player player2;
+	public static float radius = 100;
 	
 	Background back;
 	Gui gui;
@@ -42,8 +43,8 @@ public class GamePlayState extends GameState {
 		
 		Fieldgenerator fg = new Fieldgenerator(tileWidth,tileHeight);
 		tiles = fg.generate();
-		player1 = new RainbowPlayer(new KeyBoardController(), 30, 28);
-		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 24, 28);
+		player1 = new RainbowPlayer(new KeyBoardController(), 30, 10);
+		player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().first()), 24, 10);
 		tiles[30][10].setPlayer(player1);
 		tiles[24][10].setPlayer(player2);
 		
