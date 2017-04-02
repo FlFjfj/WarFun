@@ -19,6 +19,7 @@ public class GamePlayState extends GameState {
 
 	public static final int tileWidth = 60;
 	public static final int tileHeight = 30;
+	public static float colorParam = 1;
 	
 	public static OrthographicCamera camera;
 	
@@ -81,7 +82,7 @@ public class GamePlayState extends GameState {
 	@Override
 	public void update(StateBasedGame game) {
 		
-		time += Gdx.graphics.getDeltaTime();
+		time += Gdx.graphics.getDeltaTime()*colorParam;
 		
 		for(int i = 0; i < tileWidth; i++)
 			for(int j = 0; j < tileHeight; j++)

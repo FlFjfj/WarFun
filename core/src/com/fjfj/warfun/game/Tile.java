@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
 import com.fjfj.warfun.utils.AnimatedSprite;
@@ -45,7 +46,10 @@ public class Tile {
 
 	public Tile(TileType type, int x, int y) {
 
-		this.type = type;
+		this.type = type; 
+		if(this.type == TileType.Free)
+			if(MathUtils.random(9) == 0)
+				this.pill = new Pill(MathUtils.randomBoolean(),MathUtils.randomBoolean());
 		this.x = x;
 		this.y = y;
 
@@ -106,6 +110,10 @@ public class Tile {
 
 	public void setPlayer(Player player) {
 		this.here = player;
+
+		if(this.pill != null)
+			pill.doEffect();
+		this.pill = null;
 	}
 
 	public void makeRainbow(int dx, int delta) {
