@@ -18,13 +18,15 @@ import com.fjfj.warfun.utils.StateBasedGame;
 public class GamePlayState extends GameState {
 
 	public static final int tileWidth = 60;
-	public static final int tileHeight = 20;
+	public static final int tileHeight = 30;
 	
 	public static OrthographicCamera camera;
 	
 	public static Tile[][] tiles;
 	Player player1;
 	Player player2;
+	
+	float time = 0;
 	
 	public GamePlayState(int StateId, MainGame game) {
 		super(StateId, game);
@@ -57,10 +59,15 @@ public class GamePlayState extends GameState {
 		batch.setShader(Tile.tileShader);
 		Tile.tileShader.begin();
 		
-		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player"), 
-			new float[]{(player1.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player1.offsetX + Tile.SIZE / 2,
-						(player1.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player1.offsetY + Tile.SIZE / 2},
-			0, 2);
+		Tile.tileShader.setUniformf(Tile.tileShader.getUniformLocation("u_time"), time);
+		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player0"), 
+				new float[]{(player1.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player1.offsetX + Tile.SIZE / 2,
+							(player1.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player1.offsetY + Tile.SIZE / 2},
+				0, 2);
+		Tile.tileShader.setUniform2fv(Tile.tileShader.getUniformLocation("u_player1"), 
+				new float[]{(player2.x - GamePlayState.tileWidth / 2) * Tile.SIZE + player2.offsetX + Tile.SIZE / 2,
+							(player2.y - GamePlayState.tileHeight / 2) * Tile.SIZE + player2.offsetY + Tile.SIZE / 2},
+				0, 2);
 		
 		Tile.tileShader.setUniformi(Tile.tileShader.getUniformLocation("u_texture1"), 1);
 		
@@ -83,6 +90,8 @@ public class GamePlayState extends GameState {
 
 	@Override
 	public void update(StateBasedGame game) {
+		
+		time += Gdx.graphics.getDeltaTime();
 		
 		for(int i = 0; i < tileWidth; i++)
 			for(int j = 0; j < tileHeight; j++)

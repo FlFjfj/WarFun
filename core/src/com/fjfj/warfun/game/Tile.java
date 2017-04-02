@@ -44,10 +44,10 @@ public class Tile {
 
 		if (type == TileType.Solid) {
 			tex0 = Assets.getTexture("tile");
-			tex1 = Assets.getTexture("tile2");
+			tex1 = Assets.getTexture("free");
 		} else {
-			tex0 = Assets.getTexture("free");
-			tex1 = Assets.getTexture("free2");
+			tex0 = Assets.getTexture("free2");
+			tex1 = Assets.getTexture("tile2");
 		}
 	}
 
@@ -57,7 +57,9 @@ public class Tile {
 			
 			tex1.bind(1);
 			tex0.bind(0);
-			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE);
+			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE, Tile.SIZE, Tile.SIZE);
+			tex1.bind();
+			tex0.bind();
 			
 			batch.setColor(Color.WHITE);
 		}

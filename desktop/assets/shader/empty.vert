@@ -2,6 +2,7 @@ attribute vec4 a_position; //позиция вершины
 attribute vec4 a_color; //цвет вершины
 attribute vec2 a_texCoord0; //координаты текстуры
 
+uniform float u_time;
 uniform vec2 u_player;
 uniform mat4 u_projTrans;  //матрица, которая содержим данные для преобразования проекции и вида
 
