@@ -53,12 +53,7 @@ public class Tile {
 	public void draw(SpriteBatch batch) {
 		if (isRevealed) {
 			batch.setColor(1, 1, 1, isRainbow ? 1 : 0);
-			
-			if (pill != null) {
-				tex1 = Assets.getTexture("pill");
-				tex0 = Assets.getTexture("pill");
-			}
-			
+						
 			tex1.bind(1);
 			tex0.bind(0);
 			batch.draw(tex0, (x - GamePlayState.tileWidth / 2) * SIZE, (y - GamePlayState.tileHeight / 2) * SIZE, Tile.SIZE, Tile.SIZE);

@@ -7,9 +7,11 @@ public abstract class AbstractController {
 	
 	public abstract boolean isActionLeftDown();
 	public abstract boolean isActionRightDown();
+	public abstract boolean isActionUpDown();
 	
 	public abstract boolean isSecondaryActionLeftDown();
 	public abstract boolean isSecondaryActionRightDown();
+	public abstract boolean isSecondaryActionUpDown();
 	
 	public abstract boolean isUpDown();
 	

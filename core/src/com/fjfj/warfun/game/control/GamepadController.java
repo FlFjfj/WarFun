@@ -46,4 +46,14 @@ public class GamepadController extends AbstractController {
 		return control.getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f && control.getButton(Xbox.L_TRIGGER);
 	}
 
+	@Override
+	public boolean isActionUpDown() {
+		return control.getAxis(Xbox.L_STICK_VERTICAL_AXIS) < -0.4f && control.getButton(Xbox.R_TRIGGER);
+	}
+
+	@Override
+	public boolean isSecondaryActionUpDown() {
+		return control.getAxis(Xbox.L_STICK_VERTICAL_AXIS) < -0.4f && control.getButton(Xbox.L_TRIGGER);
+	}
+
 }

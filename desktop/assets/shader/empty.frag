@@ -35,7 +35,7 @@ void main(){
 
     vec4 bright_color = texture2D(u_texture, v_texCoords);
     vec3 hsv_color = rgb2hsv(bright_color.rgb);
-    hsv_color.r = (hsv_color.r + u_time / 4) - floor(hsv_color.r + u_time / 4);
+    hsv_color.r = (hsv_color.r + u_time / 4.) - floor(hsv_color.r + u_time / 4.);
     bright_color.rgb = hsv2rgb(hsv_color);
 
     vec4 color;
