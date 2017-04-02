@@ -76,7 +76,7 @@ public class GamePlayState extends GameState {
 	@Override
 	public void update(StateBasedGame game) {
 		
-		//time += Gdx.graphics.getDeltaTime();
+		time += Gdx.graphics.getDeltaTime();
 		
 		for(int i = 0; i < tileWidth; i++)
 			for(int j = 0; j < tileHeight; j++)

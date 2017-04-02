@@ -13,7 +13,7 @@ public class AnimatedSprite {
 	private float width;
 	private float height;
 
-	private Sprite[] img = null;
+	public Sprite[] img = null;
 	private boolean AnimActive = true;
 	private int AnimStart = 0;
 	private int AnimStop = 0;

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.fjfj.warfun.game.player.Player;
+import com.fjfj.warfun.game.player.RainbowPlayer;
+import com.fjfj.warfun.utils.AnimatedSprite;
 import com.fjfj.warfun.utils.Assets;
 
 public class Tile {
@@ -24,8 +26,7 @@ public class Tile {
 	public static int tex0_loc = tileShader.getUniformLocation("u_texture");
 	public static int tex1_loc = tileShader.getUniformLocation("u_texture1");
 
-	static Texture rainbow = Assets.getTexture("rainbow");
-	static TextureRegion rainbowtr = new TextureRegion(rainbow);
+	int rainbow_num;
 	public boolean isRainbow = false;
 	boolean rainbowUp = false;
 
@@ -40,7 +41,7 @@ public class Tile {
 	Texture tex1;
 
 	public TileType type;
-	public boolean isRevealed = true;
+	public boolean isRevealed = false;
 	public Pill pill = null;
 
 	public Tile(TileType type, int x, int y) {
@@ -83,12 +84,21 @@ public class Tile {
 
 	public void drawRainbow(SpriteBatch batch) {
 		if (isRainbow) {
-			if (!rainbowUp)
-				batch.draw(rainbow, (x - GamePlayState.tileWidth / 2) * SIZE,
+			if (!rainbowUp){
+				RainbowPlayer.rainbow.img[rainbow_num].setOrigin(25, 25);
+				RainbowPlayer.rainbow.img[rainbow_num].setRotation(0);
+				RainbowPlayer.rainbow.img[rainbow_num].setPosition( (x - GamePlayState.tileWidth / 2) * SIZE,
 						(y - GamePlayState.tileHeight / 2) * SIZE);
-			else
-				batch.draw(rainbowtr, (x - GamePlayState.tileWidth / 2) * SIZE,
-						(y - GamePlayState.tileHeight / 2) * SIZE, SIZE / 2, SIZE / 2, SIZE, SIZE, 1, 1, 90f);
+				RainbowPlayer.rainbow.img[rainbow_num].setFlip(true, false);
+				RainbowPlayer.rainbow.img[rainbow_num].draw(batch);
+			}
+			else{
+				RainbowPlayer.rainbow.img[rainbow_num].setOrigin(25, 25);
+				RainbowPlayer.rainbow.img[rainbow_num].setRotation(90);
+				RainbowPlayer.rainbow.img[rainbow_num].setPosition( (x - GamePlayState.tileWidth / 2) * SIZE,
+						(y - GamePlayState.tileHeight / 2) * SIZE);
+				RainbowPlayer.rainbow.img[rainbow_num].draw(batch);
+			}
 		}
 	}
 
@@ -107,9 +117,11 @@ public class Tile {
 			}
 	}
 
-	public void makeRainbow(int dx) {
+	public void makeRainbow(int dx, int delta) {
 		if (type == TileType.Free && here == null) {
 			isRainbow = true;
+			rainbow_num = delta % RainbowPlayer.rainbow.getAnimCount();
+			
 			if (x > 0) {
 				GamePlayState.tiles[x - 1][y].isRevealed = true;
 			}
@@ -119,11 +131,11 @@ public class Tile {
 
 			isRevealed = true;
 			if (Math.abs(dx) == 1 ) {
-				GamePlayState.tiles[x + dx][y].makeRainbow(dx);
+				GamePlayState.tiles[x + dx][y].makeRainbow(dx, delta + 1);
 				rainbowUp = false;
 			} else {
 				rainbowUp = true;
-				GamePlayState.tiles[x][y + (dx%2 == 0?1:-1)].makeRainbow(dx);
+				GamePlayState.tiles[x][y + (dx%2 == 0?1:-1)].makeRainbow(dx, delta + 1);
 			}
 		}
 	}
