@@ -12,9 +12,9 @@ public class BuilderPlayer extends Player {
 	public BuilderPlayer(AbstractController control, int x, int y) {
 		super(control, x, y);
 
-		super.fly = Assets.getTexture("player_fly");
+		super.fly = Assets.getTexture("player2_fly");
 		
-		super.tex = new AnimatedSprite(0, 0, 100, 100, Assets.getTexture("player"), 0);
+		super.tex = new AnimatedSprite(0, 0, 50, 50, Assets.getTexture("player2"), 0);
 		super.tex.setSize(Tile.SIZE, Tile.SIZE);
 	}
 

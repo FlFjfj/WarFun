@@ -25,7 +25,9 @@ public class GamePlayState extends GameState {
 	public static Tile[][] tiles;
 	public static Player player1;
 	public static Player player2;
+	
 	Background back;
+	Gui gui;
 	
 	public static float time = 0;
 	
@@ -45,6 +47,7 @@ public class GamePlayState extends GameState {
 		tiles[24][10].setPlayer(player2);
 		
 		back = new Background();
+		gui = new Gui();
 
 	}
 	
@@ -69,6 +72,8 @@ public class GamePlayState extends GameState {
 		
 		player1.draw(batch);
 		player2.draw(batch);
+		
+		gui.draw(batch);
 		
 		batch.end();
 	}
