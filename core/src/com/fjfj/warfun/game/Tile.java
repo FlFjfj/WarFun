@@ -93,7 +93,6 @@ public class Tile {
 				RainbowPlayer.rainbow.img[rainbow_num].setRotation(0);
 				RainbowPlayer.rainbow.img[rainbow_num].setPosition( (x - GamePlayState.tileWidth / 2) * SIZE,
 						(y - GamePlayState.tileHeight / 2) * SIZE);
-				RainbowPlayer.rainbow.img[rainbow_num].setFlip(true, false);
 				RainbowPlayer.rainbow.img[rainbow_num].draw(batch);
 			}
 			else{
