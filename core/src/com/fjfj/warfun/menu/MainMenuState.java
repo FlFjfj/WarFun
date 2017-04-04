@@ -2,15 +2,14 @@ package com.fjfj.warfun.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
-import com.badlogic.gdx.controllers.mappings.Xbox;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.fjfj.warfun.MainGame;
+import com.fjfj.warfun.game.control.AbstractController;
+import com.fjfj.warfun.game.control.KeyBoardFirstController;
+import com.fjfj.warfun.game.control.KeyBoardSecondController;
 import com.fjfj.warfun.utils.AnimatedSprite;
 import com.fjfj.warfun.utils.Assets;
 import com.fjfj.warfun.utils.GameState;
@@ -26,6 +25,8 @@ public class MainMenuState extends GameState{
 	AnimatedSprite player;
 	Texture back;
 	Texture controller0, controller1;
+	
+	public static AbstractController first, second;
 	
 	public MainMenuState(int StateId, MainGame game) {
 		super(StateId, game);
@@ -57,19 +58,17 @@ public class MainMenuState extends GameState{
 		
 		player.update(Gdx.graphics.getDeltaTime());
 		
-		Array<Controller> con = Controllers.getControllers();
-		
-		if(con.get(0).getButton(Xbox.R_TRIGGER) || con.get(1).getButton(Xbox.R_TRIGGER))
+		if(first.isActionDown() || second.isActionDown())
 			game.enterState(MainGame.GAMEPLAYSTATE);
 		
-		if(con.get(0).getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f)
+		if(first.isMoveRightDown())
 			isFirstBuilder = true;
-		if(con.get(0).getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f)
+		if(first.isMoveLeftDown())
 			isFirstBuilder = false;
 		
-		if(con.get(1).getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) > 0.4f)
+		if(second.isMoveRightDown())
 			isSecondBuilder = true;
-		if(con.get(1).getAxis(Xbox.L_STICK_HORIZONTAL_AXIS) < -0.4f)
+		if(second.isMoveLeftDown())
 			isSecondBuilder = false;
 	}
 
@@ -84,6 +83,9 @@ public class MainMenuState extends GameState{
 		
 		player.setSize(270, 300);
 		player.setPosition(-400, -player.getHeigth()/2);
+		
+		first = new KeyBoardFirstController();
+		second = new KeyBoardSecondController();
 	}
 
 	@Override

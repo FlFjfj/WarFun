@@ -2,16 +2,11 @@ package com.fjfj.warfun.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
-import com.badlogic.gdx.controllers.mappings.Xbox;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.fjfj.warfun.MainGame;
-import com.fjfj.warfun.game.control.GamepadController;
 import com.fjfj.warfun.game.player.BuilderPlayer;
 import com.fjfj.warfun.game.player.Player;
 import com.fjfj.warfun.game.player.RainbowPlayer;
@@ -98,8 +93,7 @@ public class GamePlayState extends GameState {
 		camera.zoom = 1;
 		camera.update();
 
-		Array<Controller> con = Controllers.getControllers();
-		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE) || con.get(0).getButton(Xbox.BACK) || con.get(1).getButton(Xbox.BACK))
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE))
 			game.enterState(MainGame.MAINMENUSTATE);
 		
 	}
@@ -112,14 +106,14 @@ public class GamePlayState extends GameState {
 		tiles = fg.generate();
 		
 		if(MainMenuState.isFirstBuilder)
-			player1 = new BuilderPlayer(new GamepadController(Controllers.getControllers().get(0)), 2, 2);
+			player1 = new BuilderPlayer(MainMenuState.first, 2, 2);
 		else
-			player1 = new RainbowPlayer(new GamepadController(Controllers.getControllers().get(0)), 2, 2);
+			player1 = new RainbowPlayer(MainMenuState.first, 2, 2);
 		
 		if(MainMenuState.isSecondBuilder)
-			player2 = new BuilderPlayer(new GamepadController(Controllers.getControllers().get(1)), 3, 2);
+			player2 = new BuilderPlayer(MainMenuState.second, 3, 2);
 		else
-			player2 = new RainbowPlayer(new GamepadController(Controllers.getControllers().get(1)), 3, 2);
+			player2 = new RainbowPlayer(MainMenuState.second, 3, 2);
 		
 		tiles[2][2].setPlayer(player1);
 		tiles[3][2].setPlayer(player2);

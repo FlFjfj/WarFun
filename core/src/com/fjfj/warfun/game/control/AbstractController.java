@@ -4,7 +4,8 @@ public abstract class AbstractController {
 
 	public abstract boolean isMoveLeftDown();
 	public abstract boolean isMoveRightDown();
-	
+
+	public abstract boolean isActionDown();
 	public abstract boolean isActionLeftDown();
 	public abstract boolean isActionRightDown();
 	public abstract boolean isActionUpDown();
